@@ -1,0 +1,49 @@
+@use "./abstracts/variables" as *;
+@use "./abstracts/mixins" as *;
+@use "./abstracts/breakpoints" as *;
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:$white;
+    color:$text;
+    font-family:var(--font-body);
+    overflow-x:hidden;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+ul{
+    list-style:none;
+}
+
+img{
+    width:100%;
+    display:block;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    font-family:inherit;
+}
+
+.container{
+    width:min(100% - 40px,$container);
+    margin:auto;
+}
+
+section{
+    @include section-space;
+}

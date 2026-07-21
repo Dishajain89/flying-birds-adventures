@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="eagleGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F2A900" />
+    </linearGradient>
+  </defs>
+  <g fill="url(#eagleGlow)">
+    <!-- Right Facing Majestic Eagle Vector Path -->
+    <path d="M 100,250 
+             C 140,200 200,120 280,60 
+             C 320,30 380,10 420,50 
+             C 400,90 370,140 330,180 
+             C 380,160 450,130 520,110 
+             C 580,95 640,90 690,100 
+             C 650,130 590,170 510,210 
+             C 450,240 390,260 340,270 
+             C 380,290 430,310 490,320 
+             C 530,325 570,320 600,310 
+             C 570,340 520,370 450,380 
+             C 390,390 330,370 280,340 
+             C 250,360 210,400 170,440 
+             C 180,400 190,360 195,330 
+             C 160,320 130,300 100,250 Z" />
+    <!-- Beak Facing Right -->
+    <path d="M 690,100 C 720,105 745,120 750,135 C 730,135 710,130 690,120 Z" fill="#F2A900" />
+  </g>
+</svg>

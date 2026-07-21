@@ -1,0 +1,132 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.navbar {
+  position: fixed;
+  inset: 0 0 auto;
+  width: 100%;
+  z-index: 999;
+  padding: 22px 0;
+  transition: 0.35s ease;
+}
+
+.scrolled {
+  background: rgba(17, 17, 17, 0.75);
+  backdrop-filter: blur(16px);
+  box-shadow: $shadow;
+  padding: 16px 0;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-weight: 700;
+  color: $white;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.navLink {
+  color: $white;
+  font-size: 16px;
+  font-weight: 500;
+  position: relative;
+  transition: .3s;
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: $primary;
+  transition: .3s;
+}
+
+.navLink:hover {
+  color: $primary;
+}
+
+.navLink:hover::after,
+.active::after {
+  width: 100%;
+}
+
+.active {
+  color: $primary;
+}
+
+.cta {
+  background: $primary;
+  color: $black;
+  padding: 14px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: .3s;
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+}
+
+.menuBtn {
+  display: none;
+  background: transparent;
+  border: 0;
+  color: $white;
+  font-size: 34px;
+  cursor: pointer;
+}
+
+/* ===========================
+   Tablet
+=========================== */
+
+@include tablet {
+
+  .cta {
+    display: none;
+  }
+
+  .menuBtn {
+    display: block;
+    z-index: 1001;
+  }
+
+  .nav {
+    position: fixed;
+    inset: 0;
+    background: rgba(17,17,17,.98);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 30px;
+
+    transform: translateX(100%);
+    transition: .4s ease;
+  }
+
+  .navOpen {
+    transform: translateX(0);
+  }
+
+  .navLink {
+    font-size: 28px;
+  }
+
+}

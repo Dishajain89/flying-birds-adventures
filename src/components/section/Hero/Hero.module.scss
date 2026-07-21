@@ -1,0 +1,466 @@
+/* Variables & Theme Setup */
+$color-primary: #f2a900; // Premium Amber / Gold
+$color-whatsapp: #25d366;
+$color-text-white: #ffffff;
+$color-text-muted: rgba(255, 255, 255, 0.75);
+
+$glass-bg: rgba(255, 255, 255, 0.1);
+$glass-border: rgba(255, 255, 255, 0.18);
+$glass-blur: blur(16px);
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 120px 20px 60px 20px;
+  background-color: #0b0f19;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: $color-text-white;
+}
+
+/* Layer 1: Video with Continuous Cinematic Zoom */
+.videoWrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  .bgVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: slowZoom 20s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+/* Layer 2: Dark Overlay */
+.darkOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 15, 25, 0.6) 0%,
+    rgba(11, 15, 25, 0.4) 50%,
+    rgba(11, 15, 25, 0.85) 100%
+  );
+}
+
+/* Layer 3: Moving Clouds Layer */
+.cloudLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+
+  .cloud {
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    background-repeat: repeat-x;
+    background-position: center bottom;
+    opacity: 0.35;
+  }
+
+  .cloud1 {
+    background-image: url('/images/cloud1.png');
+    animation: floatCloud 45s linear infinite;
+  }
+
+  .cloud2 {
+    background-image: url('/images/cloud2.png');
+    animation: floatCloud 70s linear infinite reverse;
+    opacity: 0.2;
+  }
+}
+
+@keyframes floatCloud {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Layer 4: Sun Glow Behind Text */
+.sunGlow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(
+    circle,
+    rgba(242, 169, 0, 0.22) 0%,
+    rgba(242, 169, 0, 0) 70%
+  );
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Floating Bird Flight Path */
+.birdWrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+
+  .flyingBird {
+    position: absolute;
+    width: 65px;
+    height: auto;
+    animation: birdFlight 22s linear infinite;
+  }
+}
+
+@keyframes birdFlight {
+  0% {
+    top: 35%;
+    left: -10%;
+    transform: scale(0.6) rotate(-5deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.8; }
+  50% {
+    top: 20%;
+    left: 45%;
+    transform: scale(1) rotate(2deg);
+  }
+  90% { opacity: 0.8; }
+  100% {
+    top: 10%;
+    left: 110%;
+    transform: scale(0.5) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+/* Container Content Structure */
+.container {
+  position: relative;
+  z-index: 5;
+  max-width: 1100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Trust Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+
+  .badgeIcon {
+    font-size: 1.1rem;
+  }
+}
+
+/* Main Typography */
+.heading {
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin-bottom: 12px;
+
+  .subHeading {
+    display: block;
+    font-size: 48px;
+    font-weight: 600;
+    margin-top: 8px;
+    background: linear-gradient(135deg, #ffffff 0%, #dcdcdc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.description {
+  max-width: 640px;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: $color-text-muted;
+  margin-bottom: 36px;
+}
+
+/* Action Buttons */
+.ctaGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 50px;
+
+  .primaryCta {
+    background-color: $color-primary;
+    color: #000;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(242, 169, 0, 0.3);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(242, 169, 0, 0.45);
+    }
+  }
+
+  .secondaryCta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    color: $color-text-white;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 14px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    .waIcon {
+      color: $color-whatsapp;
+      font-size: 1.2rem;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* Premium Floating Glass Card Search Bar */
+.glassSearchCard {
+  width: 100%;
+  max-width: 900px;
+  background: $glass-bg;
+  border: 1px solid $glass-border;
+  backdrop-filter: $glass-blur;
+  border-radius: 40px;
+  padding: 10px 14px 10px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+  }
+
+  .searchField {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    text-align: left;
+    padding: 8px 12px;
+
+    .fieldIcon {
+      font-size: 1.3rem;
+      color: $color-primary;
+    }
+
+    .fieldInputGroup {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: $color-text-muted;
+      }
+
+      input {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: $color-text-white;
+        font-size: 0.95rem;
+        font-weight: 500;
+        width: 100%;
+
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.5);
+        }
+      }
+    }
+  }
+
+  .divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .searchButton {
+    background-color: $color-primary;
+    color: #000;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+}
+
+/* Stats Counter Section */
+.statsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 48px;
+
+  .statItem {
+    h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: $color-text-white;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-size: 0.875rem;
+      color: $color-text-muted;
+    }
+  }
+
+  .statDivider {
+    width: 1px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Layer 6: Mouse Scroll Indicator */
+.scrollIndicator {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+
+  .mouse {
+    width: 24px;
+    height: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    position: relative;
+
+    .wheel {
+      width: 4px;
+      height: 8px;
+      background-color: $color-primary;
+      border-radius: 2px;
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: scrollWheel 1.8s infinite ease-in-out;
+    }
+  }
+}
+
+@keyframes scrollWheel {
+  0% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, 15px); }
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+  .heading {
+    font-size: 60px;
+    .subHeading { font-size: 38px; }
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 100px 16px 40px 16px;
+  }
+
+  .heading {
+    font-size: 44px;
+    .subHeading { font-size: 28px; }
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .ctaGroup {
+    flex-direction: column;
+    width: 100%;
+
+    .primaryCta, .secondaryCta {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  /* Glass Search Card Mobile Layout (Stacked) */
+  .glassSearchCard {
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 24px;
+    padding: 20px;
+    gap: 16px;
+
+    .divider {
+      width: 100%;
+      height: 1px;
+    }
+
+    .searchButton {
+      width: 100%;
+      justify-content: center;
+      margin-top: 8px;
+    }
+  }
+
+  .statsContainer {
+    flex-direction: column;
+    gap: 20px;
+
+    .statDivider {
+      width: 40px;
+      height: 1px;
+    }
+  }
+}
