@@ -1,0 +1,413 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.heroSection {
+  position: relative;
+  min-height: 100vh;
+  background-color: #080c14;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  /* Top padding ensures 100% safety from navbar overlap */
+  padding-top: 130px;
+  padding-bottom: 70px;
+  padding-left: 24px;
+  padding-right: 24px;
+
+  @include laptop {
+    padding-top: 110px;
+    padding-bottom: 50px;
+  }
+
+  @include mobile {
+    min-height: auto;
+    padding-top: 100px;
+    padding-bottom: 40px;
+    flex-direction: column;
+  }
+}
+
+/* Background Crossfade Canvas */
+.bgCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  .bgSlide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: scale(1.06);
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 7s cubic-bezier(0.1, 0.9, 0.2, 1);
+    pointer-events: none;
+
+    .bgImg {
+      object-fit: cover;
+    }
+
+    &.activeBgSlide {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 1;
+    }
+  }
+
+  .darkGradient {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: radial-gradient(
+      circle at 50% 45%,
+      rgba(8, 12, 20, 0.6) 0%,
+      rgba(8, 12, 20, 0.9) 75%,
+      #080c14 100%
+    );
+  }
+
+  .radialGlow {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(
+      circle,
+      rgba(242, 169, 0, 0.16) 0%,
+      rgba(242, 169, 0, 0) 70%
+    );
+    filter: blur(70px);
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .bottomFog {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 140px;
+    background: linear-gradient(180deg, transparent 0%, #080c14 100%);
+    z-index: 3;
+  }
+}
+
+/* Watermark Text */
+.bgWatermark {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12vw;
+  font-weight: 900;
+  letter-spacing: -2px;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  z-index: 2;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Center Content */
+.centerContent {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 660px;
+  pointer-events: none;
+
+  .brandBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(11, 15, 25, 0.85);
+    border: 1px solid rgba(242, 169, 0, 0.35);
+    backdrop-filter: blur(10px);
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #f2a900;
+    margin-bottom: 18px;
+
+    .eagleIcon {
+      font-size: 1rem;
+    }
+  }
+
+  .title {
+    font-size: 3.6rem;
+    font-weight: 900;
+    line-height: 1.12;
+    letter-spacing: -1.5px;
+    color: #ffffff;
+    margin-bottom: 14px;
+
+    @include tablet {
+      font-size: 2.6rem;
+    }
+
+    @include mobile {
+      font-size: 2rem;
+    }
+
+    .highlightText {
+      background: linear-gradient(135deg, #f2a900 0%, #ffc837 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.78);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    margin-bottom: 22px;
+
+    @include mobile {
+      font-size: 0.85rem;
+      margin-bottom: 26px;
+    }
+  }
+
+  .activePill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(11, 15, 25, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.7);
+
+    .compassIcon {
+      color: #f2a900;
+      animation: spinCompass 12s linear infinite;
+    }
+
+    strong {
+      color: #f2a900;
+      font-weight: 700;
+    }
+  }
+}
+
+/* Shards Container */
+.shardsContainer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+
+  @include mobile {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 30px;
+    pointer-events: auto;
+  }
+}
+
+/* Base Shard Card */
+.shard {
+  position: absolute;
+  pointer-events: auto;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+
+  @include mobile {
+    position: relative;
+    width: 100% !important;
+    height: 140px !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  .cardInner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+    background: rgba(22, 28, 45, 0.75);
+
+    .shardImg {
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(8, 12, 20, 0.1) 0%,
+        rgba(8, 12, 20, 0.4) 40%,
+        rgba(8, 12, 20, 0.95) 100%
+      );
+    }
+
+    .shardInfo {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      z-index: 2;
+
+      .stateTag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        color: #f2a900;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 2px;
+      }
+
+      .placeName {
+        font-size: 0.98rem;
+        font-weight: 800;
+        color: #ffffff;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .activeBorderGlow {
+      position: absolute;
+      inset: 0;
+      border: 2px solid #f2a900;
+      border-radius: 20px;
+      box-shadow: 0 0 22px rgba(242, 169, 0, 0.5);
+      pointer-events: none;
+      z-index: 5;
+    }
+  }
+
+  &:hover,
+  &.activeShard {
+    z-index: 20;
+
+    .cardInner {
+      border-color: #f2a900;
+      box-shadow: 0 25px 55px rgba(0, 0, 0, 0.9), 0 0 25px rgba(242, 169, 0, 0.25);
+
+      .shardImg {
+        transform: scale(1.12);
+      }
+    }
+  }
+}
+
+/* 
+  =============================================
+  NEW SAFE SLOTS (Zero Navbar Interference)
+  =============================================
+*/
+
+/* Slot 1: Left Mid-Top (Well below navbar) */
+.shardSlot1 {
+  top: 22%;
+  left: 4%;
+  width: 210px;
+  height: 250px;
+
+  @include laptop {
+    width: 170px;
+    height: 210px;
+    left: 2%;
+    top: 24%;
+  }
+}
+
+/* Slot 2: Left Lower */
+.shardSlot2 {
+  bottom: 8%;
+  left: 6%;
+  width: 220px;
+  height: 190px;
+
+  @include laptop {
+    width: 175px;
+    height: 160px;
+    left: 3%;
+  }
+}
+
+/* Slot 3: Right Mid-Top (Well below navbar CTA) */
+.shardSlot3 {
+  top: 22%;
+  right: 4%;
+  width: 210px;
+  height: 250px;
+
+  @include laptop {
+    width: 170px;
+    height: 210px;
+    right: 2%;
+    top: 24%;
+  }
+}
+
+/* Slot 4: Right Lower */
+.shardSlot4 {
+  bottom: 8%;
+  right: 6%;
+  width: 220px;
+  height: 190px;
+
+  @include laptop {
+    width: 175px;
+    height: 160px;
+    right: 3%;
+  }
+}
+
+/* Slot 5: Center Bottom Bridge */
+.shardSlot5 {
+  bottom: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 130px;
+
+  @include laptop {
+    width: 190px;
+    height: 120px;
+    bottom: 2%;
+  }
+
+  @include mobile {
+    grid-column: span 2;
+  }
+}
+
+@keyframes spinCompass {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

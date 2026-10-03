@@ -1,12 +1,16 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
-import { FiMapPin, FiCalendar, FiUsers, FiSearch } from 'react-icons/fi';
+import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { FiMapPin, FiSearch } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { initHeroAnimations, animateCounters } from './HeroAnimation';
 import styles from './Hero.module.scss';
 
 export default function Hero() {
+  const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState('');
+
   const heroRef = useRef(null);
   const cloudsRef = useRef(null);
   const badgeRef = useRef(null);
@@ -22,7 +26,6 @@ export default function Hero() {
   const stat3Ref = useRef(null);
 
   useEffect(() => {
-    // Initialize GSAP Entrance Timeline
     initHeroAnimations({
       heroRef,
       cloudsRef,
@@ -35,17 +38,33 @@ export default function Hero() {
       scrollRef,
     });
 
-    // Trigger Animated Counters
     animateCounters([
-      { ref: stat1Ref, endValue: 5000 },
-      { ref: stat2Ref, endValue: 120 },
-      { ref: stat3Ref, endValue: 4 },
+      { ref: stat1Ref, endValue: 30000 },
+      { ref: stat2Ref, endValue: 500 },
+      { ref: stat3Ref, endValue: 5 },
     ]);
   }, []);
 
+  const handleScrollToDestinations = () => {
+    const targetSection = document.getElementById('popular-destinations');
+    if (targetSection) {
+      targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  // Search Submit Handler
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const cleanQuery = searchTerm.trim().toLowerCase();
+    if (!cleanQuery) return;
+
+    // Direct slug route par redirect karega
+    const slug = cleanQuery.replace(/\s+/g, '-');
+    router.push(`/packages/${slug}`);
+  };
+
   return (
     <section className={styles.hero} ref={heroRef}>
-      {/* Layer 1: Background Video */}
       <div className={styles.videoWrapper}>
         <video
           autoPlay
@@ -53,58 +72,52 @@ export default function Hero() {
           muted
           playsInline
           className={styles.bgVideo}
-          src="/videos/hero.mp4"
+          src="/videos/hero1.mp4"
         />
       </div>
 
-      {/* Layer 2: Dark Overlay Gradient */}
       <div className={styles.darkOverlay} />
 
-      {/* Layer 3: Moving Cloud Layers */}
       <div className={styles.cloudLayer} ref={cloudsRef}>
         <div className={`${styles.cloud} ${styles.cloud1}`} />
         <div className={`${styles.cloud} ${styles.cloud2}`} />
       </div>
 
-      {/* Layer 4: Sun Glow Layer */}
       <div className={styles.sunGlow} />
 
-      {/* Continuous Animated Flying Bird */}
       <div className={styles.birdWrapper}>
         <img
-          src="/images/eagle.png"
+          src="/images/eagle-flying.gif"
           alt="Flying Bird"
           className={styles.flyingBird}
         />
       </div>
 
-      {/* Layer 5: Hero Main Content */}
       <div className={styles.container}>
-        {/* Brand Badge */}
         <div className={styles.badge} ref={badgeRef}>
           <span className={styles.badgeIcon}>🦅</span>
           <span>Trusted Adventure Company</span>
         </div>
 
-        {/* Headings */}
         <h1 className={styles.heading} ref={headingRef}>
-          Fly Beyond Limits
-          <span className={styles.subHeading}>Discover Incredible India</span>
+          Fly with the <br /> <span className={styles.subHeading}>Adventures</span>
         </h1>
 
-        {/* Description */}
         <p className={styles.description} ref={descRef}>
-          Experience breathtaking destinations, weekend getaways, and
-          unforgettable adventures with Flying Birds Adventure.
+          Where every destination becomes a memory with Flying Birds Adventure.
         </p>
 
-        {/* Action Buttons */}
+        {/* Action Buttons: Mobile par bhi row layout rakhenge */}
         <div className={styles.ctaGroup} ref={ctaRef}>
-          <button className={styles.primaryCta}>
+          <button 
+            type="button" 
+            className={styles.primaryCta}
+            onClick={handleScrollToDestinations}
+          >
             Explore Packages
           </button>
           <a
-            href="https://wa.me/"
+            href="https://wa.me/919977995057"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.secondaryCta}
@@ -114,43 +127,32 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* Premium Floating Glass Card Searchbar */}
-        <div className={styles.glassSearchCard} ref={searchRef}>
+        {/* Desktop Searchbar: Mobile par hide ho jayega kyunki wo Navbar me shift ho gaya hai */}
+        <form 
+          className={styles.glassSearchCard} 
+          ref={searchRef}
+          onSubmit={handleSearchSubmit}
+        >
           <div className={styles.searchField}>
             <FiMapPin className={styles.fieldIcon} />
             <div className={styles.fieldInputGroup}>
               <label>Destination</label>
-              <input type="text" placeholder="Where to go?" />
+              <input
+                type="text"
+                placeholder="Search Goa, Manali, Kashmir..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
           </div>
 
-          <div className={styles.divider} />
-
-          <div className={styles.searchField}>
-            <FiCalendar className={styles.fieldIcon} />
-            <div className={styles.fieldInputGroup}>
-              <label>Duration</label>
-              <input type="text" placeholder="How many days?" />
-            </div>
-          </div>
-
-          <div className={styles.divider} />
-
-          <div className={styles.searchField}>
-            <FiUsers className={styles.fieldIcon} />
-            <div className={styles.fieldInputGroup}>
-              <label>Travelers</label>
-              <input type="text" placeholder="Add guests" />
-            </div>
-          </div>
-
-          <button className={styles.searchButton}>
+          <button type="submit" className={styles.searchButton}>
             <FiSearch />
             <span>Search</span>
           </button>
-        </div>
+        </form>
 
-        {/* Stats Counter Bar */}
+        {/* Stats Counter Bar: Mobile par bhi horizontal inline flex rakha hai */}
         <div className={styles.statsContainer} ref={statsRef}>
           <div className={styles.statItem}>
             <h3>
@@ -178,13 +180,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-
-      {/* Layer 6: Animated Mouse Scroll Indicator */}
-      {/* <div className={styles.scrollIndicator} ref={scrollRef}>
-        <div className={styles.mouse}>
-          <div className={styles.wheel} />
-        </div>
-      </div> */}
     </section>
   );
 }

@@ -1,0 +1,152 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.section {
+  position: relative;
+  background-color: #070a12;
+  padding: 100px 20px;
+  color: #ffffff;
+  overflow: hidden;
+
+  @include mobile {
+    padding: 60px 16px;
+  }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Header Styling */
+.header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 60px auto;
+
+  @include mobile {
+    margin-bottom: 40px;
+  }
+
+  .tagline {
+    display: inline-block;
+    color: #f2a900;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include tablet {
+      font-size: 2.2rem;
+    }
+
+    @include mobile {
+      font-size: 1.85rem;
+    }
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+
+    @include mobile {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+/* Grid Layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+
+  @include laptop {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* Glassmorphic Feature Card */
+.card {
+  position: relative;
+  background: rgba(22, 28, 45, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
+
+  .iconBox {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    background: rgba(242, 169, 0, 0.12);
+    border: 1px solid rgba(242, 169, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    transition: transform 0.4s ease, background 0.4s ease;
+
+    .iconInner {
+      font-size: 1.6rem;
+      color: #f2a900;
+      display: flex;
+    }
+  }
+
+  .cardTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 12px;
+    transition: color 0.3s ease;
+  }
+
+  .cardDesc {
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+  }
+
+  /* Hover Micro-interactions */
+  &:hover {
+    transform: translateY(-8px);
+    border-color: rgba(242, 169, 0, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 25px rgba(242, 169, 0, 0.1);
+
+    .iconBox {
+      transform: scale(1.1) rotate(4deg);
+      background: #f2a900;
+
+      .iconInner {
+        color: #000000;
+      }
+    }
+
+    .cardTitle {
+      color: #f2a900;
+    }
+  }
+}

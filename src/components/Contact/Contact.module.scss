@@ -1,0 +1,496 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.pageWrapper {
+  background-color: #0b0f19;
+  min-height: 100vh;
+  padding: 120px 20px 80px 20px;
+  color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+  @include mobile {
+    padding: 100px 16px 60px 16px;
+  }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.breadcrumb {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 30px;
+
+  a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+
+    &:hover {
+      color: #f2a900;
+    }
+  }
+
+  span {
+    color: #f2a900;
+    font-weight: 600;
+  }
+}
+
+/* Header */
+.header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 36px auto;
+
+  .tagline {
+    display: inline-block;
+    color: #f2a900;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include tablet {
+      font-size: 2.3rem;
+    }
+
+    @include mobile {
+      font-size: 1.9rem;
+    }
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+  }
+}
+
+/* 📸 COMMUNITY TRIP PHOTOS MOSAIC BANNER */
+.communityBanner {
+  background: rgba(22, 28, 45, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 20px;
+  margin-bottom: 48px;
+
+  .communityHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 0 8px;
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f2a900;
+    }
+
+    small {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.8rem;
+    }
+  }
+
+  .photosGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    height: 180px;
+
+    @include tablet {
+      grid-template-columns: repeat(3, 1fr);
+      height: 240px;
+      .photoItem:nth-child(n+4) {
+        display: none;
+      }
+    }
+
+    @include mobile {
+      grid-template-columns: repeat(2, 1fr);
+      height: 160px;
+      .photoItem:nth-child(n+3) {
+        display: none;
+      }
+    }
+
+    .photoItem {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+
+      .photoImg {
+        object-fit: cover;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .photoOverlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.8) 100%);
+        display: flex;
+        align-items: flex-end;
+        padding: 10px;
+        opacity: 0.9;
+        transition: opacity 0.3s ease;
+
+        span {
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: #ffffff;
+        }
+      }
+
+      &:hover {
+        .photoImg {
+          transform: scale(1.1);
+        }
+        .photoOverlay {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+/* Quick Cards */
+.quickCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 50px;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card {
+    background: rgba(22, 28, 45, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      border-color: rgba(242, 169, 0, 0.4);
+    }
+
+    .iconBox {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: rgba(242, 169, 0, 0.12);
+      color: #f2a900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    p {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 16px;
+    }
+
+    .link {
+      color: #f2a900;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .highlightCard {
+    border-color: rgba(37, 211, 102, 0.3);
+    background: rgba(37, 211, 102, 0.05);
+
+    .waIconBox {
+      background: rgba(37, 211, 102, 0.15);
+      color: #25d366;
+    }
+
+    .waLink {
+      background: #25d366;
+      color: #ffffff;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: #20bd5a;
+      }
+    }
+  }
+}
+
+/* Main Grid Layout */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 32px;
+
+  @include laptop {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Form Card */
+.formCard {
+  background: rgba(22, 28, 45, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  border-radius: 24px;
+  padding: 36px;
+
+  @include mobile {
+    padding: 24px 18px;
+  }
+
+  .formTitle {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .formSubtitle {
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 28px;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #ffffff;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+
+      &:focus {
+        border-color: #f2a900;
+      }
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    select {
+      cursor: pointer;
+      option {
+        background: #0b0f19;
+        color: #fff;
+      }
+    }
+  }
+
+  .submitBtn {
+    background: #25d366;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.2s ease, background 0.2s ease;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+
+    &:hover {
+      background: #20bd5a;
+      transform: translateY(-2px);
+    }
+  }
+
+  .successState {
+    text-align: center;
+    padding: 40px 20px;
+
+    .successIcon {
+      font-size: 3rem;
+      color: #25d366;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 24px;
+    }
+
+    .resetBtn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+  }
+}
+
+/* Info Card (Right Column) */
+.infoCard {
+  background: rgba(22, 28, 45, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  border-radius: 24px;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  @include mobile {
+    padding: 24px 18px;
+  }
+
+  .infoBlock {
+    .infoTitle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+
+      .infoIcon {
+        color: #f2a900;
+        font-size: 1.25rem;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+    }
+
+    .infoText {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.6;
+      padding-left: 28px;
+    }
+  }
+
+  .socialBlock {
+    h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .socialIcons {
+      display: flex;
+      gap: 12px;
+
+      a {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: #f2a900;
+          color: #000;
+          transform: translateY(-3px);
+        }
+      }
+    }
+  }
+
+  .mapContainer {
+    width: 100%;
+    height: 180px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+  }
+}

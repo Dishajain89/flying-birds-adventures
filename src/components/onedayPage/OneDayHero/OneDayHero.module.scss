@@ -1,0 +1,519 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.heroSection {
+  position: relative;
+  min-height: 100vh;
+  background-color: #060911;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 125px;
+  padding-bottom: 70px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  @include laptop {
+    padding-top: 105px;
+    padding-bottom: 50px;
+  }
+
+  @include mobile {
+    min-height: auto;
+    padding-top: 90px;
+    padding-bottom: 40px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* Ambient Golden Atmosphere */
+.ambientGlow {
+  position: absolute;
+  top: 35%;
+  right: 25%;
+  transform: translate(50%, -50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(
+    circle,
+    rgba(242, 169, 0, 0.16) 0%,
+    rgba(242, 169, 0, 0) 70%
+  );
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Topographical Contour Radial Rings */
+.topographicRings {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.25;
+  background-image: 
+    radial-gradient(circle at 75% 50%, transparent 80px, rgba(242, 169, 0, 0.3) 81px, transparent 83px),
+    radial-gradient(circle at 75% 50%, transparent 160px, rgba(242, 169, 0, 0.2) 161px, transparent 163px),
+    radial-gradient(circle at 75% 50%, transparent 260px, rgba(242, 169, 0, 0.15) 261px, transparent 263px),
+    radial-gradient(circle at 75% 50%, transparent 380px, rgba(242, 169, 0, 0.1) 381px, transparent 383px);
+}
+
+/* Subtle Giant Watermark */
+.watermarkText {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12vw;
+  font-weight: 900;
+  letter-spacing: -3px;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.035);
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+  font-family: system-ui, sans-serif;
+}
+
+.container {
+  position: relative;
+  z-index: 5;
+  max-width: 1320px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Top Origin Status Bar */
+.topStatusBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .originPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(18, 24, 38, 0.7);
+    border: 1px solid rgba(242, 169, 0, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #f2a900;
+
+    .pulseDot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #25d366;
+      box-shadow: 0 0 8px #25d366;
+      animation: blinkPulse 1.8s infinite;
+    }
+
+    .navIcon {
+      font-size: 0.85rem;
+    }
+  }
+
+  .indoreVibeTicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.65);
+
+    .sunIcon {
+      color: #f2a900;
+    }
+  }
+}
+
+/* Stage Grid */
+.stageGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: center;
+  gap: 60px;
+
+  @include laptop {
+    gap: 36px;
+  }
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+/* Left Content Column */
+.contentColumn {
+  .brandBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(242, 169, 0, 0.1);
+    border: 1px solid rgba(242, 169, 0, 0.4);
+    backdrop-filter: blur(8px);
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #f2a900;
+    margin-bottom: 18px;
+
+    .badgeCompass {
+      font-size: 0.95rem;
+      animation: spinSlow 25s linear infinite;
+    }
+  }
+
+  .mainHeadline {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: #ffffff;
+    margin-bottom: 18px;
+
+    .goldGradient {
+      background: linear-gradient(135deg, #f2a900 0%, #ffc837 50%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @include tablet {
+      font-size: 3rem;
+    }
+
+    @include mobile {
+      font-size: 2.25rem;
+      letter-spacing: -1px;
+    }
+  }
+
+  .leadCopy {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.65;
+    margin-bottom: 28px;
+    max-width: 520px;
+
+    @include mobile {
+      font-size: 0.92rem;
+    }
+  }
+
+  /* Quick Metrics Strip */
+  .quickMetrics {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(18, 24, 38, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    padding: 12px 24px;
+    border-radius: 18px;
+    margin-bottom: 34px;
+
+    @include mobile {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 12px 16px;
+      gap: 10px;
+    }
+
+    .metricItem {
+      display: flex;
+      flex-direction: column;
+
+      strong {
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: #f2a900;
+      }
+
+      small {
+        font-size: 0.68rem;
+        color: rgba(255, 255, 255, 0.55);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    .metricDivider {
+      width: 1px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  /* Action Row */
+  .actionRow {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    .primaryCta {
+      background: #f2a900;
+      color: #000000;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(242, 169, 0, 0.35);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+      .arrowIcon {
+        font-size: 1.1rem;
+        transition: transform 0.2s;
+      }
+
+      &:hover {
+        background: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
+
+        .arrowIcon {
+          transform: translate(3px, -3px);
+        }
+      }
+    }
+
+    .liveSeatPulse {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #25d366;
+    }
+  }
+}
+
+/* Right Column: 3D Shards Cluster */
+.shardsColumn {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.shardsCluster {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: 480px;
+
+  @include mobile {
+    height: 400px;
+  }
+}
+
+/* Individual Shard Blades */
+.shardBlade {
+  position: absolute;
+  width: 260px;
+  height: 340px;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(18, 24, 38, 0.8);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @include mobile {
+    width: 220px;
+    height: 290px;
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .shardImg {
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .shardOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(6, 9, 17, 0.3) 0%,
+      rgba(6, 9, 17, 0.1) 40%,
+      rgba(6, 9, 17, 0.95) 100%
+    );
+  }
+
+  /* Shard Meta Info */
+  .shardTop {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .shardTag {
+      background: #f2a900;
+      color: #000000;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+
+    .shardDistance {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(6, 9, 17, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+    }
+  }
+
+  .shardBottom {
+    position: relative;
+    z-index: 3;
+
+    small {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #f2a900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.2;
+      margin-bottom: 2px;
+    }
+
+    p {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.75);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .activeBorderGlow {
+    position: absolute;
+    inset: 0;
+    border: 2px solid #f2a900;
+    border-radius: 24px;
+    box-shadow: 0 0 30px rgba(242, 169, 0, 0.35);
+    pointer-events: none;
+    z-index: 4;
+
+    @include mobile {
+      border-radius: 18px;
+    }
+  }
+}
+
+/* Layered Fan Coordinates */
+.blade0 {
+  top: 0;
+  left: 0;
+  transform: rotate(-7deg);
+  z-index: 2;
+}
+
+.blade1 {
+  top: 40px;
+  left: 110px;
+  transform: rotate(2deg);
+  z-index: 3;
+
+  @include mobile {
+    left: 60px;
+    top: 30px;
+  }
+}
+
+.blade2 {
+  top: 90px;
+  left: 210px;
+  transform: rotate(8deg);
+  z-index: 4;
+
+  @include mobile {
+    left: 110px;
+    top: 60px;
+  }
+}
+
+/* Active & Hover Lift */
+.bladeActive,
+.shardBlade:hover {
+  z-index: 10 !important;
+  transform: translateY(-16px) rotate(0deg) scale(1.04) !important;
+  border-color: rgba(242, 169, 0, 0.6);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 30px rgba(242, 169, 0, 0.25);
+
+  .shardImg {
+    transform: scale(1.08);
+  }
+}
+
+.bottomShadowFog {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 110px;
+  background: linear-gradient(180deg, transparent 0%, #060911 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes blinkPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

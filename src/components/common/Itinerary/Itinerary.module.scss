@@ -1,0 +1,102 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.itineraryWrapper {
+  margin-bottom: 40px;
+
+  .sectionTitle {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+}
+
+.accordionGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.accordionItem {
+  background: rgba(22, 28, 45, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.3s;
+
+  &.active {
+    border-color: rgba(242, 169, 0, 0.5);
+    background: rgba(22, 28, 45, 0.8);
+  }
+
+  .accordionHeader {
+    width: 100%;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    text-align: left;
+
+    .dayBadge {
+      background: #f2a900;
+      color: #000;
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .dayTitle {
+      font-size: 1.05rem;
+      font-weight: 600;
+      flex-grow: 1;
+    }
+
+    .arrowIcon {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.6);
+      transition: transform 0.3s ease;
+
+      &.rotate {
+        transform: rotate(180deg);
+        color: #f2a900;
+      }
+    }
+  }
+
+  .accordionContent {
+    padding: 0 20px 20px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: 8px;
+
+    .detailsText {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+      margin: 14px 0;
+    }
+
+    .dayTags {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+
+      span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.82rem;
+        color: #f2a900;
+        background: rgba(242, 169, 0, 0.1);
+        padding: 6px 12px;
+        border-radius: 20px;
+      }
+    }
+  }
+}

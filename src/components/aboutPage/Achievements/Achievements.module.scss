@@ -1,0 +1,230 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.section {
+  position: relative;
+  background: #080c14;
+  padding: 100px 20px 120px 20px;
+  color: #ffffff;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+  @include mobile {
+    padding: 60px 16px 80px 16px;
+  }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Top Split Section */
+.topSplit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 70px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  @include tablet {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+  }
+}
+
+.header {
+  max-width: 680px;
+
+  .tagline {
+    display: inline-block;
+    color: #f2a900;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-size: 2.85rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include tablet {
+      font-size: 2.3rem;
+    }
+
+    @include mobile {
+      font-size: 1.9rem;
+    }
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+  }
+}
+
+/* Circular Dashboard Gauge */
+.heroGaugeWidget {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+
+  .outerRing {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 2px dashed rgba(242, 169, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background: radial-gradient(circle, rgba(242, 169, 0, 0.08) 0%, transparent 70%);
+
+    .innerRing {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+      .gaugeVal {
+        font-size: 2rem;
+        font-weight: 900;
+        color: #f2a900;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .gaugeLabel {
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.75);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+}
+
+/* HUD Grid */
+.hudGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+
+  @include laptop {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.statRowItem {
+  position: relative;
+  background: rgba(18, 24, 38, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 30px 24px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(12px);
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+
+  .itemHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .iconCircle {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(242, 169, 0, 0.1);
+      border: 1px solid rgba(242, 169, 0, 0.25);
+      color: #f2a900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .bigNumber {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #ffffff;
+      font-family: monospace, system-ui;
+      letter-spacing: -1px;
+    }
+  }
+
+  .itemTitle {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+
+  .itemDesc {
+    font-size: 0.86rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.55;
+    margin-bottom: 24px;
+    flex-grow: 1;
+  }
+
+  /* Glowing Progress Bar */
+  .progressTrack {
+    position: relative;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+
+    .barFill {
+      height: 100%;
+      background: linear-gradient(90deg, #f2a900 0%, #ffc837 100%);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(242, 169, 0, 0.5);
+    }
+  }
+
+  /* Hover States */
+  &:hover {
+    transform: translateY(-6px);
+    border-color: rgba(242, 169, 0, 0.4);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(242, 169, 0, 0.1);
+
+    .itemHeader .iconCircle {
+      background: #f2a900;
+      color: #000000;
+      transform: scale(1.1);
+    }
+
+    .itemTitle {
+      color: #f2a900;
+    }
+  }
+}

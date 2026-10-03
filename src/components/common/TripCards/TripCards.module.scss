@@ -1,0 +1,346 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.section {
+  position: relative;
+  background-color: #070a12;
+  padding: 80px 20px 120px 20px;
+  color: #ffffff;
+  overflow: hidden;
+
+  @include mobile {
+    padding: 50px 16px 80px 16px;
+  }
+}
+
+.glowRadial {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(
+    circle,
+    rgba(242, 169, 0, 0.08) 0%,
+    rgba(242, 169, 0, 0) 70%
+  );
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 50px auto;
+
+  .tagline {
+    display: inline-block;
+    color: #f2a900;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 14px;
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include tablet {
+      font-size: 2.2rem;
+    }
+
+    @include mobile {
+      font-size: 1.85rem;
+    }
+  }
+
+  .subtitle {
+    font-size: 1.02rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+
+    @include mobile {
+      font-size: 0.92rem;
+    }
+  }
+}
+
+/* 3-Column Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+
+  @include laptop {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* Full-Height Edge-To-Edge Card */
+.tripCard {
+  position: relative;
+  width: 100%;
+  height: 440px;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 24, 38, 0.6);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.45s ease;
+
+  @include mobile {
+    height: 390px;
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  /* Full Image Canvas */
+  .imageBackdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+
+    .bgImg {
+      object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gradientOverlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(7, 10, 18, 0.3) 0%,
+        rgba(7, 10, 18, 0.15) 30%,
+        rgba(7, 10, 18, 0.95) 85%,
+        #070a12 100%
+      );
+    }
+  }
+
+  /* Top Badges */
+  .cardHeader {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    pointer-events: none;
+
+    .featureBadge {
+      background: #f2a900;
+      color: #000000;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(242, 169, 0, 0.35);
+    }
+  }
+
+  /* Bottom Content Area */
+  .cardBody {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+
+    .locationMeta {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #f2a900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+
+      .pinIcon {
+        font-size: 0.85rem;
+      }
+    }
+
+    .tripTitle {
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      transition: color 0.3s ease;
+
+      @include mobile {
+        font-size: 1.4rem;
+      }
+    }
+
+    .durationRow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 18px;
+
+      .clockIcon {
+        color: #f2a900;
+      }
+    }
+
+    .cardFooter {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+
+      .priceWrap {
+        display: flex;
+        flex-direction: column;
+
+        .priceLabel {
+          font-size: 0.68rem;
+          color: rgba(255, 255, 255, 0.55);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .priceText {
+          font-size: 1.35rem;
+          font-weight: 900;
+          color: #ffffff;
+
+          small {
+            font-size: 0.74rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+          }
+        }
+      }
+
+      .actionBtns {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .waBtn {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: rgba(37, 211, 102, 0.15);
+          border: 1px solid rgba(37, 211, 102, 0.35);
+          color: #25d366;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.2rem;
+          text-decoration: none;
+          backdrop-filter: blur(8px);
+          transition: all 0.25s ease;
+
+          &:hover {
+            background: #25d366;
+            color: #ffffff;
+            transform: scale(1.08);
+          }
+        }
+
+        .exploreBtn {
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          color: #ffffff;
+          padding: 9px 18px;
+          border-radius: 25px;
+          font-size: 0.84rem;
+          font-weight: 700;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          text-decoration: none;
+          backdrop-filter: blur(8px);
+          transition: all 0.3s ease;
+
+          .arrowIcon {
+            font-size: 1rem;
+            transition: transform 0.2s ease;
+          }
+
+          &:hover {
+            background: #f2a900;
+            color: #000000;
+            border-color: #f2a900;
+            box-shadow: 0 4px 15px rgba(242, 169, 0, 0.35);
+
+            .arrowIcon {
+              transform: translateX(3px);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .glowBorder {
+    position: absolute;
+    inset: 0;
+    border: 2px solid transparent;
+    border-radius: 28px;
+    pointer-events: none;
+    transition: all 0.4s ease;
+    z-index: 4;
+
+    @include mobile {
+      border-radius: 22px;
+    }
+  }
+
+  /* Micro-Interactions on Hover */
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.85), 0 0 25px rgba(242, 169, 0, 0.2);
+    border-color: rgba(242, 169, 0, 0.4);
+
+    .imageBackdrop .bgImg {
+      transform: scale(1.08);
+    }
+
+    .cardBody .tripTitle {
+      color: #f2a900;
+    }
+
+    .glowBorder {
+      border-color: rgba(242, 169, 0, 0.4);
+    }
+  }
+}

@@ -1,0 +1,205 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.faqSection {
+  position: relative;
+  background-color: #0b0f19;
+  padding: 100px 20px 110px 20px;
+  color: #ffffff;
+  overflow: hidden;
+
+  @include mobile {
+    padding: 60px 16px 80px 16px;
+  }
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 50px auto;
+
+  .tagline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #f2a900;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 14px;
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include tablet {
+      font-size: 2.2rem;
+    }
+
+    @include mobile {
+      font-size: 1.85rem;
+    }
+  }
+
+  .subtitle {
+    font-size: 1.02rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+
+    @include mobile {
+      font-size: 0.92rem;
+    }
+  }
+}
+
+/* Accordion */
+.accordionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.accordionItem {
+  background: rgba(22, 28, 45, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &.activeItem {
+    border-color: rgba(242, 169, 0, 0.45);
+    background: rgba(22, 28, 45, 0.75);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(242, 169, 0, 0.08);
+  }
+
+  .questionHeader {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 26px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    gap: 16px;
+
+    @include mobile {
+      padding: 18px 20px;
+    }
+
+    .questionText {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.45;
+      transition: color 0.2s ease;
+
+      @include mobile {
+        font-size: 0.98rem;
+      }
+    }
+
+    .iconWrap {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f2a900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+    }
+
+    .rotateIcon {
+      transform: rotate(180deg);
+      background: #f2a900;
+      color: #000000;
+    }
+
+    &:hover .questionText {
+      color: #f2a900;
+    }
+  }
+
+  .answerContent {
+    padding: 0 26px 22px 26px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin-top: 4px;
+    padding-top: 16px;
+
+    @include mobile {
+      padding: 0 20px 18px 20px;
+      padding-top: 14px;
+    }
+
+    p {
+      font-size: 0.94rem;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.65;
+    }
+  }
+}
+
+/* View More / View Less Button Styling */
+.toggleBtnWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 36px;
+}
+
+.viewMoreBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(242, 169, 0, 0.35);
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 40px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+
+  svg {
+    font-size: 1.1rem;
+    color: #f2a900;
+    transition: transform 0.25s ease;
+  }
+
+  &:hover {
+    background: #f2a900;
+    color: #000000;
+    border-color: #f2a900;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(242, 169, 0, 0.35);
+
+    svg {
+      color: #000000;
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}

@@ -6,15 +6,16 @@
   inset: 0 0 auto;
   width: 100%;
   z-index: 999;
-  padding: 22px 0;
-  transition: 0.35s ease;
+  padding: 18px 0;
+  transition: all 0.35s ease;
 }
 
 .scrolled {
-  background: rgba(17, 17, 17, 0.75);
+  background: rgba(11, 15, 25, 0.85);
   backdrop-filter: blur(16px);
-  box-shadow: $shadow;
-  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  padding: 12px 0;
 }
 
 .wrapper {
@@ -23,102 +24,292 @@
   justify-content: space-between;
 }
 
-.logo {
-  font-family: var(--font-heading);
-  font-size: 30px;
-  font-weight: 700;
-  color: $white;
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 50%;
+  transition: transform 0.25s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.logoImage {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(242, 169, 0, 0.4);
+
+  @include mobile {
+    width: 44px;
+    height: 44px;
+  }
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 36px;
+}
+
+.drawerSearch {
+  display: none; // Hidden on desktop
+}
+
+.drawerCta {
+  display: none; // Hidden on desktop
 }
 
 .navLink {
-  color: $white;
-  font-size: 16px;
+  color: #ffffff;
+  font-size: 15px;
   font-weight: 500;
   position: relative;
-  transition: .3s;
+  transition: 0.3s ease;
+  letter-spacing: 0.3px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: #f2a900;
+    transition: 0.3s ease;
+  }
+
+  &:hover {
+    color: #f2a900;
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &.active {
+    color: #f2a900;
+
+    &::after {
+      width: 100%;
+    }
+  }
 }
 
-.navLink::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 0;
-  height: 2px;
-  background: $primary;
-  transition: .3s;
-}
-
-.navLink:hover {
-  color: $primary;
-}
-
-.navLink:hover::after,
-.active::after {
-  width: 100%;
-}
-
-.active {
-  color: $primary;
+/* Right Actions */
+.rightActions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .cta {
-  background: $primary;
-  color: $black;
-  padding: 14px 24px;
+  background: #f2a900;
+  color: #000000;
+  padding: 11px 22px;
   border-radius: 50px;
-  font-weight: 600;
-  transition: .3s;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(242, 169, 0, 0.35);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+  }
 }
 
-.cta:hover {
-  transform: translateY(-2px);
+.mobileSearchBtn {
+  display: none;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.15rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: #f2a900;
+    color: #000000;
+    border-color: #f2a900;
+  }
 }
 
 .menuBtn {
   display: none;
   background: transparent;
   border: 0;
-  color: $white;
-  font-size: 34px;
+  color: #ffffff;
+  font-size: 32px;
   cursor: pointer;
+  transition: color 0.25s ease;
+
+  &:hover {
+    color: #f2a900;
+  }
+}
+
+/* Dropdown Floating Search for Mobile */
+.dropdownSearchWrapper {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(11, 15, 25, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 0;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  .dropdownSearchForm {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(242, 169, 0, 0.35);
+    border-radius: 30px;
+    padding: 6px 8px 6px 16px;
+
+    .searchIcon {
+      font-size: 1.1rem;
+      color: #f2a900;
+      flex-shrink: 0;
+    }
+
+    input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-size: 0.92rem;
+      font-weight: 500;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    .searchSubmitBtn {
+      background: #f2a900;
+      border: none;
+      color: #000000;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: #ffffff;
+      }
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ===========================
-   Tablet
+   Tablet & Mobile Layout
 =========================== */
 
 @include tablet {
-
   .cta {
     display: none;
   }
 
+  .mobileSearchBtn {
+    display: flex;
+  }
+
   .menuBtn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 1001;
   }
 
   .nav {
     position: fixed;
     inset: 0;
-    background: rgba(17,17,17,.98);
-
+    background: rgba(7, 10, 18, 0.98);
+    backdrop-filter: blur(20px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    gap: 30px;
-
+    gap: 24px;
+    padding: 20px;
     transform: translateX(100%);
-    transition: .4s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1000;
+
+    .drawerSearch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 320px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 30px;
+      padding: 10px 18px;
+      margin-bottom: 12px;
+
+      .drawerSearchIcon {
+        color: #f2a900;
+        font-size: 1.1rem;
+      }
+
+      input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #ffffff;
+        font-size: 0.95rem;
+
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.5);
+        }
+      }
+    }
+
+    .drawerCta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #f2a900;
+      color: #000000;
+      font-weight: 700;
+      padding: 12px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(242, 169, 0, 0.4);
+    }
   }
 
   .navOpen {
@@ -126,7 +317,7 @@
   }
 
   .navLink {
-    font-size: 28px;
+    font-size: 1.4rem;
+    font-weight: 600;
   }
-
 }

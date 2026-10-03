@@ -1,0 +1,482 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.section {
+  position: relative;
+  background-color: #0b0f19;
+  padding: 100px 20px 120px 20px;
+  color: #ffffff;
+  overflow: hidden;
+
+  @include mobile {
+    padding: 60px 16px 80px 16px;
+  }
+}
+
+.container {
+  position: relative;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.ambientGlow {
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(
+    circle,
+    rgba(242, 169, 0, 0.12) 0%,
+    rgba(242, 169, 0, 0) 70%
+  );
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+/* =========================================================
+   1. MAIN FOUNDER SPOTLIGHT CARD
+   ========================================================= */
+.founderCard {
+  position: relative;
+  background: rgba(22, 28, 45, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  border-radius: 32px;
+  padding: 50px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
+              0 0 30px rgba(242, 169, 0, 0.08);
+  margin-bottom: 80px;
+
+  @include tablet {
+    padding: 30px 20px;
+    margin-bottom: 50px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 50px;
+  align-items: center;
+
+  @include laptop {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.imageColumn {
+  display: flex;
+  justify-content: center;
+
+  .portraitFrame {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    height: 520px;
+    border-radius: 26px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+
+    @include mobile {
+      height: 400px;
+    }
+
+    .founderImg {
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      object-position: top center;
+    }
+
+    .imageOverlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(11, 15, 25, 0.1) 0%,
+        rgba(11, 15, 25, 0.8) 100%
+      );
+    }
+
+    .expPill {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      padding: 10px 18px;
+      border-radius: 40px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+
+      .expIcon {
+        font-size: 1.3rem;
+        color: #f2a900;
+      }
+
+      strong {
+        display: block;
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #ffffff;
+      }
+
+      span {
+        display: block;
+        font-size: 0.72rem;
+        color: rgba(255, 255, 255, 0.65);
+      }
+    }
+
+    &:hover .founderImg {
+      transform: scale(1.06);
+    }
+  }
+}
+
+.contentColumn {
+  .tagline {
+    display: inline-block;
+    color: #f2a900;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .name {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 4px;
+    color: #ffffff;
+
+    @include mobile {
+      font-size: 2rem;
+    }
+  }
+
+  .designation {
+    display: block;
+    font-size: 0.95rem;
+    color: #f2a900;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .quoteBox {
+    position: relative;
+    background: rgba(242, 169, 0, 0.06);
+    border-left: 3px solid #f2a900;
+    border-radius: 0 16px 16px 0;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+
+    .quoteIcon {
+      color: rgba(242, 169, 0, 0.3);
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .quoteText {
+      font-size: 1.05rem;
+      font-style: italic;
+      font-weight: 500;
+      color: #ffffff;
+      line-height: 1.6;
+
+      @include mobile {
+        font-size: 0.92rem;
+      }
+    }
+  }
+
+  .bioDesc {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.7;
+    margin-bottom: 30px;
+  }
+
+  .statsRow {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 18px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 32px;
+
+    .statItem {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .statIcon {
+        font-size: 1.6rem;
+        color: #f2a900;
+      }
+
+      h4 {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: #ffffff;
+      }
+
+      p {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+
+    .divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  .actionRow {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .socialGroup {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      a {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: #f2a900;
+          border-color: #f2a900;
+          color: #000000;
+          transform: translateY(-3px);
+        }
+      }
+
+      .socialLabel {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+      }
+    }
+  }
+}
+
+/* =========================================================
+   2. CO-FOUNDER & DIRECTOR (Full Non-Cropped Landscape/Split Cards)
+   ========================================================= */
+.teamHeader {
+  text-align: center;
+  margin-bottom: 36px;
+
+  .subTagline {
+    display: inline-block;
+    color: #f2a900;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .subHeading {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+
+    @include mobile {
+      font-size: 1.55rem;
+    }
+  }
+}
+
+.teamList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+
+  @include laptop {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.horizontalCard {
+  background: rgba(18, 24, 38, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 26px;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  display: grid;
+  grid-template-columns: 200px 1fr; // Left: Clean Portrait, Right: Details
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @include tablet {
+    grid-template-columns: 180px 1fr;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr; // Mobile par clean stacked view
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: rgba(242, 169, 0, 0.35);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 20px rgba(242, 169, 0, 0.08);
+
+    .memberPhotoStage .memberPhoto {
+      transform: scale(1.05);
+    }
+  }
+
+  /* Photo Container with Top-Center Alignment (No Cut Offs) */
+  .memberPhotoStage {
+    position: relative;
+    width: 100%;
+    min-height: 270px;
+    height: 100%;
+    background: #070a12;
+    overflow: hidden;
+
+    @include mobile {
+      height: 300px;
+    }
+
+    .memberPhoto {
+      object-fit: cover;
+      object-position: center top; // 👈 Pura face aur shoulder properly dikhega
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .photoVignette {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(18, 24, 38, 0) 60%,
+        rgba(18, 24, 38, 0.8) 100%
+      );
+
+      @include mobile {
+        background: linear-gradient(
+          180deg,
+          rgba(18, 24, 38, 0) 60%,
+          rgba(18, 24, 38, 0.95) 100%
+        );
+      }
+    }
+  }
+
+  /* Right Side Info Body */
+  .memberInfo {
+    padding: 26px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include mobile {
+      padding: 20px 18px;
+    }
+
+    .memberHeader {
+      margin-bottom: 12px;
+
+      .roleTag {
+        display: inline-block;
+        background: rgba(242, 169, 0, 0.12);
+        border: 1px solid rgba(242, 169, 0, 0.3);
+        color: #f2a900;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        padding: 3px 10px;
+        border-radius: 20px;
+        margin-bottom: 8px;
+      }
+
+      .memberName {
+        font-size: 1.45rem;
+        font-weight: 800;
+        color: #ffffff;
+
+        @include mobile {
+          font-size: 1.25rem;
+        }
+      }
+    }
+
+    .memberBioText {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .memberAction {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+      .instaBtn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: #ffffff;
+        padding: 7px 14px;
+        border-radius: 30px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.25s ease;
+
+        svg {
+          color: #f2a900;
+          font-size: 0.95rem;
+        }
+
+        &:hover {
+          background: #f2a900;
+          color: #000000;
+          border-color: #f2a900;
+
+          svg {
+            color: #000000;
+          }
+        }
+      }
+
+      .fbaTag {
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+}

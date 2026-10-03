@@ -1,0 +1,468 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.cardsSection {
+  position: relative;
+  min-height: 100vh;
+  background-color: #070a12;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 130px;
+  padding-bottom: 90px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  @include laptop {
+    padding-top: 110px;
+    padding-bottom: 70px;
+  }
+
+  @include mobile {
+    min-height: auto;
+    padding-top: 95px;
+    padding-bottom: 50px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
+/* Background Atmosphere */
+.ambientGoldCore {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 750px;
+  height: 750px;
+  background: radial-gradient(
+    circle,
+    rgba(242, 169, 0, 0.16) 0%,
+    rgba(242, 169, 0, 0) 70%
+  );
+  filter: blur(95px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bgGridCanvas {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.55;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index: 5;
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Header */
+.headerBlock {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 48px auto;
+
+  @include mobile {
+    margin-bottom: 32px;
+  }
+
+  .pillBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(11, 15, 25, 0.85);
+    border: 1px solid rgba(242, 169, 0, 0.4);
+    backdrop-filter: blur(10px);
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #f2a900;
+    margin-bottom: 16px;
+
+    .zapIcon {
+      color: #f2a900;
+      animation: pulseBlink 1.5s infinite;
+    }
+  }
+
+  .title {
+    font-size: 3.6rem;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    color: #ffffff;
+    margin-bottom: 14px;
+
+    .gradientText {
+      background: linear-gradient(135deg, #f2a900 0%, #ffc837 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @include tablet {
+      font-size: 2.8rem;
+    }
+
+    @include mobile {
+      font-size: 2.1rem;
+    }
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+
+    @include mobile {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+/* Stage Layout */
+.stageWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 36px;
+  max-width: 1120px;
+  margin: 0 auto;
+
+  @include laptop {
+    gap: 24px;
+  }
+
+  @include tablet {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Left Featured Card: Adjusted for 3:4 Poster Images */
+.featuredCard {
+  position: sticky;
+  top: 110px;
+  width: 480px; // Poster ratio width
+  height: 580px; // Increased height to prevent 3:4 poster crop
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(18, 24, 38, 0.85);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 26px 30px;
+  flex-shrink: 0;
+  z-index: 10;
+  transition: border-color 0.3s ease;
+
+  @include laptop {
+    width: 420px;
+    height: 520px;
+    padding: 22px 24px;
+    top: 90px;
+  }
+
+  @include tablet {
+    position: relative;
+    top: 0;
+    width: 100%;
+    max-width: 480px;
+    height: 540px;
+    margin-bottom: 24px;
+  }
+
+  @include mobile {
+    width: 100%;
+    height: 480px;
+    padding: 18px 20px;
+    border-radius: 20px;
+  }
+
+  .featuredImg {
+    object-fit: cover;
+    object-position: top center; // Protects top headline text in posters
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+  }
+
+  .cardOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(7, 10, 18, 0.25) 0%,
+      rgba(7, 10, 18, 0.1) 40%,
+      rgba(7, 10, 18, 0.95) 85%,
+      #070a12 100%
+    );
+  }
+
+  .ticketTop {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .ticketBadge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f2a900;
+      color: #000000;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    .originTag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: 1px;
+      background: rgba(7, 10, 18, 0.6);
+      padding: 4px 10px;
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+    }
+  }
+
+  .ticketBottom {
+    position: relative;
+    z-index: 3;
+
+    .metaRow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+
+      .spotCategory {
+        font-size: 0.76rem;
+        font-weight: 700;
+        color: #f2a900;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    }
+
+    .spotName {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 12px;
+
+      @include mobile {
+        font-size: 1.55rem;
+      }
+    }
+
+    .spotMeta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+
+      .driveBadge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: rgba(11, 15, 25, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        font-size: 0.76rem;
+        font-weight: 600;
+        padding: 5px 12px;
+        border-radius: 12px;
+        backdrop-filter: blur(8px);
+      }
+
+      .priceBadge {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.75);
+
+        strong {
+          color: #f2a900;
+          font-size: 1.05rem;
+        }
+      }
+
+      .exploreLink {
+        margin-left: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #f2a900;
+        color: #000000;
+        padding: 7px 16px;
+        border-radius: 18px;
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-decoration: none;
+        box-shadow: 0 4px 14px rgba(242, 169, 0, 0.35);
+        transition: all 0.25s ease;
+
+        &:hover {
+          background: #ffffff;
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+
+  .cardBorderGlow {
+    position: absolute;
+    inset: 0;
+    border: 2px solid rgba(242, 169, 0, 0.5);
+    border-radius: 28px;
+    box-shadow: 0 0 30px rgba(242, 169, 0, 0.25);
+    pointer-events: none;
+
+    @include mobile {
+      border-radius: 20px;
+    }
+  }
+}
+
+/* Right Scrollable Cards Column */
+.satelliteCardsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 380px;
+  flex-shrink: 0;
+
+  @include laptop {
+    width: 320px;
+  }
+
+  @include tablet {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .satelliteCard {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(18, 24, 38, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 12px 16px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .thumbnailWrap {
+      position: relative;
+      width: 58px;
+      height: 68px; // 3:4 thumbnail proportion
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+
+      .thumbnailImg {
+        object-fit: cover;
+        object-position: top center; // Keeps poster title visible in thumbnail
+      }
+    }
+
+    .cardText {
+      flex: 1;
+
+      strong {
+        display: block;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #ffffff;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: color 0.2s;
+        margin-bottom: 2px;
+      }
+
+      .subMeta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        span {
+          font-size: 0.82rem;
+          font-weight: 800;
+          color: #f2a900;
+        }
+
+        small {
+          font-size: 0.72rem;
+          color: rgba(255, 255, 255, 0.55);
+        }
+      }
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(242, 169, 0, 0.4);
+      transform: translateX(4px);
+
+      @include tablet {
+        transform: translateY(-2px);
+      }
+    }
+
+    &.activeCard {
+      background: rgba(242, 169, 0, 0.12);
+      border-color: #f2a900;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(242, 169, 0, 0.2);
+      transform: scale(1.02);
+
+      .cardText strong {
+        color: #f2a900;
+      }
+    }
+  }
+}
+
+.bottomShadowFog {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(180deg, transparent 0%, #070a12 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes pulseBlink {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}

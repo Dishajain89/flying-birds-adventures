@@ -1,5 +1,5 @@
 /* Variables & Theme Setup */
-$color-primary: #f2a900; // Premium Amber / Gold
+$color-primary: #f2a900;
 $color-whatsapp: #25d366;
 $color-text-white: #ffffff;
 $color-text-muted: rgba(255, 255, 255, 0.75);
@@ -22,7 +22,6 @@ $glass-blur: blur(16px);
   color: $color-text-white;
 }
 
-/* Layer 1: Video with Continuous Cinematic Zoom */
 .videoWrapper {
   position: absolute;
   inset: 0;
@@ -41,7 +40,6 @@ $glass-blur: blur(16px);
   100% { transform: scale(1.08); }
 }
 
-/* Layer 2: Dark Overlay */
 .darkOverlay {
   position: absolute;
   inset: 0;
@@ -54,7 +52,6 @@ $glass-blur: blur(16px);
   );
 }
 
-/* Layer 3: Moving Clouds Layer */
 .cloudLayer {
   position: absolute;
   inset: 0;
@@ -87,7 +84,6 @@ $glass-blur: blur(16px);
   100% { transform: translateX(-50%); }
 }
 
-/* Layer 4: Sun Glow Behind Text */
 .sunGlow {
   position: absolute;
   top: 20%;
@@ -104,7 +100,6 @@ $glass-blur: blur(16px);
   pointer-events: none;
 }
 
-/* Floating Bird Flight Path */
 .birdWrapper {
   position: absolute;
   inset: 0;
@@ -113,7 +108,7 @@ $glass-blur: blur(16px);
 
   .flyingBird {
     position: absolute;
-    width: 65px;
+    width: 120px;
     height: auto;
     animation: birdFlight 22s linear infinite;
   }
@@ -141,7 +136,6 @@ $glass-blur: blur(16px);
   }
 }
 
-/* Container Content Structure */
 .container {
   position: relative;
   z-index: 5;
@@ -153,7 +147,6 @@ $glass-blur: blur(16px);
   text-align: center;
 }
 
-/* Trust Badge */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -172,46 +165,42 @@ $glass-blur: blur(16px);
   }
 }
 
-/* Main Typography */
 .heading {
   font-size: 72px;
-  font-weight: 800;
+  font-weight: 400;
   line-height: 1.1;
   letter-spacing: -1.5px;
   margin-bottom: 12px;
+  font-family: var(--font-bungee-inline);
+  color: $color-primary;
+}
 
-  .subHeading {
-    display: block;
-    font-size: 48px;
-    font-weight: 600;
-    margin-top: 8px;
-    background: linear-gradient(135deg, #ffffff 0%, #dcdcdc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+.subHeading {
+  display: block;
+  color: white;
+  font-weight: 400;
 }
 
 .description {
   max-width: 640px;
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   line-height: 1.6;
   color: $color-text-muted;
   margin-bottom: 36px;
 }
 
-/* Action Buttons */
 .ctaGroup {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 50px;
+  margin-bottom: 44px;
 
   .primaryCta {
     background-color: $color-primary;
     color: #000;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 14px 32px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 13px 28px;
     border-radius: 50px;
     border: none;
     cursor: pointer;
@@ -232,16 +221,16 @@ $glass-blur: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(8px);
     color: $color-text-white;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 14px 28px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 13px 26px;
     border-radius: 50px;
     text-decoration: none;
     transition: all 0.3s ease;
 
     .waIcon {
       color: $color-whatsapp;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
     }
 
     &:hover {
@@ -252,15 +241,14 @@ $glass-blur: blur(16px);
   }
 }
 
-/* Premium Floating Glass Card Search Bar */
 .glassSearchCard {
   width: 100%;
-  max-width: 900px;
+  max-width: 820px;
   background: $glass-bg;
   border: 1px solid $glass-border;
   backdrop-filter: $glass-blur;
   border-radius: 40px;
-  padding: 10px 14px 10px 28px;
+  padding: 8px 10px 8px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -269,7 +257,6 @@ $glass-blur: blur(16px);
 
   &:hover {
     border-color: rgba(255, 255, 255, 0.35);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
   }
 
   .searchField {
@@ -278,7 +265,7 @@ $glass-blur: blur(16px);
     gap: 12px;
     flex: 1;
     text-align: left;
-    padding: 8px 12px;
+    padding: 6px 12px;
 
     .fieldIcon {
       font-size: 1.3rem;
@@ -288,9 +275,10 @@ $glass-blur: blur(16px);
     .fieldInputGroup {
       display: flex;
       flex-direction: column;
+      flex: 1;
 
       label {
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -313,20 +301,14 @@ $glass-blur: blur(16px);
     }
   }
 
-  .divider {
-    width: 1px;
-    height: 36px;
-    background: rgba(255, 255, 255, 0.15);
-  }
-
   .searchButton {
     background-color: $color-primary;
     color: #000;
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 0.95rem;
     border: none;
     border-radius: 30px;
-    padding: 14px 28px;
+    padding: 12px 26px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -339,24 +321,23 @@ $glass-blur: blur(16px);
   }
 }
 
-/* Stats Counter Section */
 .statsContainer {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
-  margin-top: 48px;
+  gap: 36px;
+  margin-top: 40px;
 
   .statItem {
     h3 {
       font-size: 2rem;
-      font-weight: 700;
+      font-weight: 800;
       color: $color-text-white;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     p {
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       color: $color-text-muted;
     }
   }
@@ -368,99 +349,81 @@ $glass-blur: blur(16px);
   }
 }
 
-/* Layer 6: Mouse Scroll Indicator */
-.scrollIndicator {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-
-  .mouse {
-    width: 24px;
-    height: 40px;
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-radius: 20px;
-    position: relative;
-
-    .wheel {
-      width: 4px;
-      height: 8px;
-      background-color: $color-primary;
-      border-radius: 2px;
-      position: absolute;
-      top: 6px;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: scrollWheel 1.8s infinite ease-in-out;
-    }
-  }
-}
-
-@keyframes scrollWheel {
-  0% { opacity: 1; transform: translate(-50%, 0); }
-  100% { opacity: 0; transform: translate(-50%, 15px); }
-}
-
-/* Responsive Media Queries */
-@media (max-width: 1024px) {
-  .heading {
-    font-size: 60px;
-    .subHeading { font-size: 38px; }
-  }
-}
-
+/* ====================================================
+   MOBILE VIEW (Desktop Layout Scale Down)
+   ==================================================== */
 @media (max-width: 768px) {
   .hero {
-    padding: 100px 16px 40px 16px;
+    padding: 95px 14px 40px 14px;
+    min-height: 90vh;
+  }
+
+  .badge {
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    margin-bottom: 18px;
   }
 
   .heading {
-    font-size: 44px;
-    .subHeading { font-size: 28px; }
+    font-size: 40px;
+    line-height: 1.15;
+    letter-spacing: -1px;
+
+    .subHeading {
+      font-size: 32px;
+    }
   }
 
   .description {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    max-width: 320px;
+    margin-bottom: 24px;
   }
 
+  /* Desktop style row maintained, buttons scaled */
   .ctaGroup {
-    flex-direction: column;
+    flex-direction: row; // 👈 Mobile par bhi single line row
+    gap: 10px;
     width: 100%;
+    justify-content: center;
+    margin-bottom: 28px;
 
-    .primaryCta, .secondaryCta {
-      width: 100%;
-      justify-content: center;
+    .primaryCta {
+      padding: 10px 18px;
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    .secondaryCta {
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      white-space: nowrap;
     }
   }
 
-  /* Glass Search Card Mobile Layout (Stacked) */
+  /* Search bar is shifted to Navbar on mobile */
   .glassSearchCard {
-    flex-direction: column;
-    align-items: stretch;
-    border-radius: 24px;
-    padding: 20px;
-    gap: 16px;
-
-    .divider {
-      width: 100%;
-      height: 1px;
-    }
-
-    .searchButton {
-      width: 100%;
-      justify-content: center;
-      margin-top: 8px;
-    }
+    display: none !important;
   }
 
+  /* Stats row scaled down in single line */
   .statsContainer {
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: row; // 👈 Mobile par vertical stack nahi hoga
+    gap: 16px;
+    margin-top: 18px;
+
+    .statItem {
+      h3 {
+        font-size: 1.25rem;
+      }
+      p {
+        font-size: 0.68rem;
+        white-space: nowrap;
+      }
+    }
 
     .statDivider {
-      width: 40px;
-      height: 1px;
+      height: 22px;
     }
   }
 }

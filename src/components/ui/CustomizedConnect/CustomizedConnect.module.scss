@@ -1,0 +1,278 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.section {
+  position: relative;
+  background-color: #070a12;
+  padding: 60px 20px;
+  overflow: hidden;
+
+  @include mobile {
+    padding: 40px 16px;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Horizontal Banner Card */
+.bannerCard {
+  position: relative;
+  border-radius: 28px;
+  background: radial-gradient(
+    120% 120% at 20% 20%,
+    rgba(16, 42, 60, 0.85) 0%,
+    rgba(10, 25, 36, 0.92) 50%,
+    rgba(7, 14, 22, 0.95) 100%
+  );
+  border: 1.5px solid rgba(242, 169, 0, 0.35);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7),
+              0 0 40px rgba(242, 169, 0, 0.12);
+  padding: 44px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  overflow: hidden;
+
+  @include tablet {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 36px 30px;
+    gap: 28px;
+  }
+
+  @include mobile {
+    padding: 28px 20px;
+    border-radius: 20px;
+  }
+}
+
+/* Subtle Golden Ambient Ring */
+.outerGlow {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  pointer-events: none;
+  box-shadow: inset 0 0 30px rgba(242, 169, 0, 0.08);
+
+  @include mobile {
+    border-radius: 20px;
+  }
+}
+
+/* Embedded Topographic Contour Lines */
+.topographicMesh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.15;
+  background-image: 
+    radial-gradient(circle at 80% 30%, transparent 60px, rgba(242, 169, 0, 0.35) 61px, transparent 63px),
+    radial-gradient(circle at 80% 30%, transparent 110px, rgba(242, 169, 0, 0.3) 111px, transparent 113px),
+    radial-gradient(circle at 80% 30%, transparent 170px, rgba(242, 169, 0, 0.25) 171px, transparent 173px),
+    radial-gradient(circle at 80% 30%, transparent 240px, rgba(242, 169, 0, 0.2) 241px, transparent 243px),
+    radial-gradient(circle at 20% 80%, transparent 80px, rgba(255, 255, 255, 0.2) 81px, transparent 83px),
+    radial-gradient(circle at 20% 80%, transparent 140px, rgba(255, 255, 255, 0.15) 141px, transparent 143px);
+  background-size: cover;
+}
+
+/* Left Text Area */
+.textBlock {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+
+  .titleWrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 12px;
+
+    .compassAccent {
+      font-size: 1.5rem;
+      color: rgba(242, 169, 0, 0.7);
+      transform: rotate(25deg);
+      flex-shrink: 0;
+      margin-top: 4px;
+
+      @include mobile {
+        display: none;
+      }
+    }
+  }
+
+  .title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1.18;
+    display: flex;
+    flex-direction: column;
+
+    @include tablet {
+      font-size: 1.95rem;
+    }
+
+    @include mobile {
+      font-size: 1.65rem;
+    }
+
+    .goldText {
+      color: #e6b756;
+      text-shadow: 0 2px 10px rgba(230, 183, 86, 0.25);
+    }
+
+    .whiteText {
+      color: #ffffff;
+    }
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.5;
+    margin: 0;
+
+    @include mobile {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+/* Right Action Buttons Area */
+.actionBlock {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  @include tablet {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  @include mobile {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+}
+
+.btnGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  @include mobile {
+    width: 100%;
+  }
+
+  .helperText {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    text-align: center;
+  }
+}
+
+/* Call Now Pill Button */
+.callBtn {
+  background: #17425e;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  padding: 13px 26px;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @include mobile {
+    width: 100%;
+    padding: 14px 20px;
+  }
+
+  .btnIcon {
+    font-size: 1.05rem;
+    color: #e6b756;
+  }
+
+  &:hover {
+    background: #1f567a;
+    border-color: #e6b756;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(23, 66, 94, 0.5);
+  }
+}
+
+/* WhatsApp Pill Button with Pointer */
+.whatsappBtn {
+  background: #1eb757;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 13px 24px;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(30, 183, 87, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @include mobile {
+    width: 100%;
+    padding: 14px 20px;
+  }
+
+  .btnIcon {
+    font-size: 1.2rem;
+  }
+
+  .handIcon {
+    font-size: 1.1rem;
+    color: #ffffff;
+    animation: tapHand 1.5s infinite ease-in-out;
+  }
+
+  &:hover {
+    background: #25d366;
+    color: #000000;
+    border-color: #25d366;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
+
+    .handIcon {
+      color: #000000;
+    }
+  }
+}
+
+/* Hand Pointer Micro-Animation */
+@keyframes tapHand {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(4px) rotate(-10deg);
+  }
+}

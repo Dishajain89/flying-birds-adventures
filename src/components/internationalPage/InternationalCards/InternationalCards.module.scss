@@ -1,0 +1,330 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.section {
+  position: relative;
+  background-color: #070a12;
+  padding: 80px 20px 120px 20px;
+  color: #ffffff;
+  overflow: hidden;
+
+  @include mobile {
+    padding: 50px 16px 80px 16px;
+  }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 50px auto;
+
+  .tagline {
+    display: inline-block;
+    color: #f2a900;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 14px;
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include tablet {
+      font-size: 2.2rem;
+    }
+
+    @include mobile {
+      font-size: 1.85rem;
+    }
+  }
+
+  .subtitle {
+    font-size: 1.02rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+
+    @include mobile {
+      font-size: 0.92rem;
+    }
+  }
+}
+
+/* 3-Column Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+
+  @include laptop {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* Card Structure */
+.tripCard {
+  position: relative;
+  background: rgba(18, 24, 38, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
+
+  .imageBox {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+
+    @include mobile {
+      height: 230px;
+    }
+
+    .img {
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(7, 10, 18, 0.25) 0%,
+        transparent 40%,
+        rgba(7, 10, 18, 0.88) 100%
+      );
+    }
+
+    .topBadges {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 2;
+
+      .featureBadge {
+        background: #f2a900;
+        color: #000000;
+        font-size: 0.72rem;
+        font-weight: 800;
+        padding: 5px 12px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .ratingBadge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: rgba(7, 10, 18, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(8px);
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.76rem;
+        color: #ffffff;
+
+        .starIcon {
+          color: #f2a900;
+          fill: #f2a900;
+          font-size: 0.85rem;
+        }
+
+        span {
+          color: rgba(255, 255, 255, 0.55);
+          font-size: 0.7rem;
+        }
+      }
+    }
+
+    .visaTag {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(7, 10, 18, 0.8);
+      border: 1px solid rgba(242, 169, 0, 0.3);
+      backdrop-filter: blur(8px);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #f2a900;
+
+      .passportIcon {
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  /* Bottom Content Area */
+  .cardContent {
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .metaRow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      margin-bottom: 8px;
+
+      .countryTag {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-weight: 700;
+        color: #f2a900;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .durationTag {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: rgba(255, 255, 255, 0.65);
+        font-weight: 500;
+      }
+    }
+
+    .tripTitle {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 18px;
+      line-height: 1.3;
+      transition: color 0.3s ease;
+    }
+
+    .cardFooter {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+      .priceWrap {
+        display: flex;
+        flex-direction: column;
+
+        .priceLabel {
+          font-size: 0.68rem;
+          color: rgba(255, 255, 255, 0.55);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .priceText {
+          font-size: 1.35rem;
+          font-weight: 800;
+          color: #ffffff;
+
+          small {
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+          }
+        }
+      }
+
+      .actionBtns {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .waBtn {
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: rgba(37, 211, 102, 0.15);
+          border: 1px solid rgba(37, 211, 102, 0.3);
+          color: #25d366;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.15rem;
+          text-decoration: none;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: #25d366;
+            color: #ffffff;
+            transform: scale(1.08);
+          }
+        }
+
+        .exploreBtn {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: #ffffff;
+          padding: 9px 18px;
+          border-radius: 20px;
+          font-size: 0.84rem;
+          font-weight: 700;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          text-decoration: none;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: #f2a900;
+            color: #000000;
+            border-color: #f2a900;
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+  }
+
+  /* Hover States */
+  &:hover {
+    transform: translateY(-8px);
+    border-color: rgba(242, 169, 0, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(242, 169, 0, 0.1);
+
+    .imageBox .img {
+      transform: scale(1.08);
+    }
+
+    .cardContent .tripTitle {
+      color: #f2a900;
+    }
+  }
+}

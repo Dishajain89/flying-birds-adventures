@@ -1,129 +1,299 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef } from 'react';
-import Image from 'next/image';
-import { FiMapPin, FiClock, FiStar, FiArrowRight } from 'react-icons/fi';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { DESTINATIONS_DATA } from '@/data/destinationData';
-import styles from './PopularDestination.module.scss';
+import React, { useState, useMemo } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  FiMapPin,
+  FiClock,
+  FiArrowUpRight,
+  FiChevronLeft,
+  FiChevronRight,
+  FiCompass,
+} from "react-icons/fi";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
-gsap.registerPlugin(ScrollTrigger);
+// Swiper core styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-export default function PopularDestinations() {
-  const sectionRef = useRef(null);
-  const cardsRef = useRef([]);
+import styles from "./PopularDestination.module.scss";
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Header Animation
-      gsap.from('.dest-header-anim', {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power3.out',
-      });
+const CATEGORIES = [
+  { id: "all", label: "All Trips" },
+  { id: "weekend", label: "Weekends Trips" },
+  { id: "trek", label: "Trek" },
+];
 
-      // Cards Stagger Reveal
-      gsap.from(cardsRef.current, {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 65%',
-        },
-        y: 60,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out',
-      });
-    }, sectionRef);
+// Active tab ke hisaab se dynamic heading words
+const CATEGORY_TITLES = {
+  all: "Group",
+  weekend: "Weekend",
+  trek: "Trek",
+};
 
-    return () => ctx.revert();
-  }, []);
+export default function PopularDestinations({ trips = [] }) {
+  const [prevEl, setPrevEl] = useState(null);
+  const [nextEl, setNextEl] = useState(null);
+
+  // Filter States
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [isInternational, setIsInternational] = useState(false);
+
+  // Dynamic Filtering Logic
+  const filteredTrips = useMemo(() => {
+    return trips.filter((trip) => {
+      // 1. Domestic vs International Check
+      const tripIsIntl =
+        trip.isInternational === true ||
+        (trip.region && trip.region.toLowerCase().includes("international")) ||
+        (trip.tripType && trip.tripType.toLowerCase().includes("international"));
+
+      if (isInternational ? !tripIsIntl : tripIsIntl) {
+        return false;
+      }
+
+      // 2. Category Tab Check
+      if (activeCategory === "all") return true;
+
+      const directCategory = (trip.category || trip.tripType || "").toLowerCase();
+      if (directCategory === activeCategory) return true;
+
+      const combinedMeta = `${trip.title || ""} ${trip.name || ""} ${trip.badge || ""}`.toLowerCase();
+
+      if (activeCategory === "weekend") {
+        return (
+          combinedMeta.includes("weekend") ||
+          combinedMeta.includes("sunday") ||
+          (trip.duration && (trip.duration.includes("1D") || trip.duration.includes("2D")))
+        );
+      }
+
+      if (activeCategory === "trek") {
+        return (
+          combinedMeta.includes("trek") ||
+          combinedMeta.includes("hike") ||
+          combinedMeta.includes("summit")
+        );
+      }
+
+      return true;
+    });
+  }, [trips, activeCategory, isInternational]);
 
   return (
-    <section className={styles.section} ref={sectionRef}>
+    <section className={styles.section} id="popular-destinations">
+      <div className={styles.glowRadial} />
+
       <div className={styles.container}>
         {/* Section Header */}
-        <div className={styles.header}>
-          <span className={`${styles.tagline} dest-header-anim`}>
-            ✨ EXPLORE INDIA'S BEST
-          </span>
-          <h2 className={`${styles.title} dest-header-anim`}>
-            Popular Destinations
-          </h2>
-          <p className={`${styles.subtitle} dest-header-anim`}>
-            Handpicked iconic locations designed for ultimate thrill, breathtaking views, and lifelong memories.
-          </p>
+        <div className={styles.headerWrapper}>
+          <div className={styles.header}>
+            <div className={styles.tagBadge}>
+              <FiCompass className={styles.tagIcon} />
+              <span>EXPLORE INDIA&apos;S BEST</span>
+            </div>
+
+            {/* Dynamic Title (Group Trips / Weekend Trips / Trek Trips) */}
+            <h2 className={styles.title}>
+              {CATEGORY_TITLES[activeCategory] || "Group"}{" "}
+              <span className={styles.titleHighlight}>Trips</span>
+            </h2>
+
+            <p className={styles.subtitle}>
+              Expert-curated, locally approved travel guides and unforgettable adventures with like-minded travellers.
+            </p>
+          </div>
+
+          {/* Navigation Arrows */}
+          <div className={styles.navControls}>
+            <button
+              ref={(node) => setPrevEl(node)}
+              className={`${styles.navBtn} ${styles.prevBtn}`}
+              aria-label="Previous Slide"
+              type="button"
+            >
+              <FiChevronLeft />
+            </button>
+            <button
+              ref={(node) => setNextEl(node)}
+              className={`${styles.navBtn} ${styles.nextBtn}`}
+              aria-label="Next Slide"
+              type="button"
+            >
+              <FiChevronRight />
+            </button>
+          </div>
         </div>
 
-        {/* Destinations Grid */}
-        <div className={styles.grid}>
-          {DESTINATIONS_DATA.map((dest, index) => (
-            <div
-              key={dest.id}
-              className={styles.card}
-              ref={(el) => (cardsRef.current[index] = el)}
+        {/* Filter Controls */}
+        <div className={styles.filterBar}>
+          <div className={styles.tabsList}>
+            {CATEGORIES.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                className={`${styles.tabBtn} ${
+                  activeCategory === tab.id ? styles.activeTab : ""
+                }`}
+                onClick={() => setActiveCategory(tab.id)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          <div className={styles.toggleWrapper}>
+            <span className={styles.toggleLabel}>
+              {isInternational ? "International" : "Domestic"}
+            </span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={isInternational}
+              className={`${styles.switchBtn} ${
+                isInternational ? styles.switchActive : ""
+              }`}
+              onClick={() => setIsInternational(!isInternational)}
             >
-              {/* Image & Overlay Wrapper */}
-              <div className={styles.imageWrapper}>
-                <Image
-                  src={dest.image}
-                  alt={dest.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className={styles.bgImage}
-                  priority={index < 3}
-                />
-                <div className={styles.overlay} />
-                
-                {dest.badge && (
-                  <span className={styles.badge}>{dest.badge}</span>
-                )}
+              <span className={styles.switchHandle} />
+            </button>
+          </div>
+        </div>
 
-                <div className={styles.locationTag}>
-                  <FiMapPin className={styles.pinIcon} />
-                  <span>{dest.state}</span>
-                </div>
-              </div>
-
-              {/* Card Content */}
-              <div className={styles.content}>
-                <div className={styles.metaRow}>
-                  <div className={styles.rating}>
-                    <FiStar className={styles.starIcon} />
-                    <span>{dest.rating}</span>
-                    <small>({dest.reviewsCount})</small>
-                  </div>
-                  <div className={styles.duration}>
-                    <FiClock className={styles.clockIcon} />
-                    <span>{dest.duration}</span>
-                  </div>
-                </div>
-
-                <h3 className={styles.cardTitle}>{dest.name}</h3>
-
-                <div className={styles.footerRow}>
-                  <div className={styles.priceContainer}>
-                    <span className={styles.priceLabel}>Starting from</span>
-                    <div className={styles.priceValue}>
-                      ₹{dest.price} <span>/ person</span>
-                    </div>
-                  </div>
-
-                  <button className={styles.actionBtn} aria-label={`View details for ${dest.name}`}>
-                    <span>View Details</span>
-                    <FiArrowRight className={styles.arrowIcon} />
-                  </button>
-                </div>
-              </div>
+        {/* Carousel Slider */}
+        <div className={styles.sliderWrapper}>
+          {filteredTrips.length === 0 ? (
+            <div className={styles.emptyState}>
+              <p>No trips currently scheduled under this category.</p>
             </div>
-          ))}
+          ) : (
+            <Swiper
+              key={`${activeCategory}-${isInternational}`}
+              modules={[Navigation, Pagination, Autoplay]}
+              grabCursor={false}
+              simulateTouch={true}
+              touchStartPreventDefault={false}
+              loop={filteredTrips.length > 3}
+              loopAdditionalSlides={2}
+              speed={600}
+              autoplay={{
+                delay: 3500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              pagination={{
+                clickable: true,
+                el: `.${styles.customPagination}`,
+                bulletClass: styles.bullet,
+                bulletActiveClass: styles.bulletActive,
+              }}
+              navigation={{
+                prevEl,
+                nextEl,
+              }}
+              breakpoints={{
+                0: {
+                  slidesPerView: 2.15,
+                  spaceBetween: 12,
+                },
+                540: {
+                  slidesPerView: 2.6,
+                  spaceBetween: 14,
+                },
+                768: {
+                  slidesPerView: 2.8,
+                  spaceBetween: 18,
+                },
+                1024: {
+                  slidesPerView: 3.2,
+                  spaceBetween: 24,
+                },
+                1280: {
+                  slidesPerView: 3.4,
+                  spaceBetween: 28,
+                },
+              }}
+              className={styles.swiperContainer}
+            >
+              {filteredTrips.map((dest, index) => {
+                const tripSlug = dest.slug || dest.id;
+                return (
+                  <SwiperSlide
+                    key={dest.id || index}
+                    className={styles.swiperSlide}
+                  >
+                    <div className={styles.stageCard}>
+                      <div className={styles.imageBackdrop}>
+                        {dest.image && (
+                          <Image
+                            src={dest.image}
+                            alt={dest.name || dest.title}
+                            fill
+                            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                            className={styles.bgImg}
+                            priority={index < 2}
+                          />
+                        )}
+                        <div className={styles.gradientOverlay} />
+                      </div>
+
+                      <div className={styles.cardHeader}>
+                        {dest.badge && (
+                          <span className={styles.badge}>{dest.badge}</span>
+                        )}
+                      </div>
+
+                      <div className={styles.cardBody}>
+                        {dest.state && (
+                          <div className={styles.locationPill}>
+                            <FiMapPin className={styles.pinIcon} />
+                            <span>{dest.state}</span>
+                          </div>
+                        )}
+
+                        <h3 className={styles.cardTitle}>
+                          {dest.name || dest.title}
+                        </h3>
+
+                        {dest.duration && (
+                          <div className={styles.durationRow}>
+                            <FiClock className={styles.clockIcon} />
+                            <span>{dest.duration}</span>
+                          </div>
+                        )}
+
+                        <div className={styles.cardFooter}>
+                          <div className={styles.priceWrap}>
+                            <span className={styles.priceLabel}>Starting from</span>
+                            <div className={styles.priceText}>
+                              ₹{dest.price}{" "}
+                              <small className={styles.perPerson}>/ person</small>
+                            </div>
+                          </div>
+
+                          <Link
+                            href={`/packages/${tripSlug}`}
+                            className={styles.actionBtn}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <span>Explore</span>
+                            <FiArrowUpRight className={styles.arrowIcon} />
+                          </Link>
+                        </div>
+                      </div>
+
+                      <div className={styles.glowBorder} />
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          )}
+
+          <div className={styles.customPagination} />
         </div>
       </div>
     </section>

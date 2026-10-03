@@ -8,8 +8,16 @@ export const NAV_LINKS = [
     href: "/about",
   },
   {
-    label: "Domestic Trips",
-    href: "/packages",
+    label: "One Day Trips",
+    href: "/oneDayTrips",
+  },
+  {
+    label: "Domestic",
+    href: "/domestic",
+  },
+  {
+    label: "International",
+    href: "/international",
   },
   {
     label: "Gallery",

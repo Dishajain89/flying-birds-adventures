@@ -1,0 +1,243 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.pageWrapper {
+  background-color: #0b0f19;
+  min-height: 100vh;
+  padding: 100px 20px 80px 20px;
+  color: #ffffff;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.breadcrumb {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 24px;
+
+  a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+
+    &:hover {
+      color: #f2a900;
+    }
+  }
+
+  span {
+    color: #f2a900;
+    font-weight: 600;
+  }
+}
+
+/* Gallery Layout */
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  height: 380px;
+  margin-bottom: 40px;
+  border-radius: 24px;
+  overflow: hidden;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    height: 260px;
+  }
+
+  .galleryImage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .img {
+      object-fit: cover;
+      transition: transform 0.4s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+/* Master 70/30 Grid Layout */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 40px;
+
+  @include laptop {
+    grid-template-columns: 1fr;
+  }
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.sectionBlock {
+  background: rgba(22, 28, 45, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 28px;
+
+  .mainTitle {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include mobile {
+      font-size: 1.7rem;
+    }
+  }
+
+  .overviewText {
+    font-size: 1.02rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .subTitle {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #f2a900;
+    margin-bottom: 14px;
+  }
+
+  .highlightsList {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.9);
+
+      .icon {
+        color: #f2a900;
+      }
+    }
+  }
+}
+
+.blockHeader {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+/* Inclusions & Exclusions Grid */
+.incExcGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+
+  .incBox, .excBox {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 20px;
+
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: 14px;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 0.88rem;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.85);
+      }
+    }
+  }
+
+  .incBox {
+    h3 { color: #25d366; }
+    .checkIcon { color: #25d366; flex-shrink: 0; font-size: 1.1rem; }
+  }
+
+  .excBox {
+    h3 { color: #ff4d4d; }
+    .crossIcon { color: #ff4d4d; flex-shrink: 0; font-size: 1.1rem; }
+  }
+}
+
+/* Things to Carry Cards */
+.carryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .carryCard {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .emoji { font-size: 1.5rem; }
+    span { font-size: 0.85rem; font-weight: 500; }
+  }
+}
+
+/* Important Yellow Warning Card */
+.warningCard {
+  background: rgba(242, 169, 0, 0.08);
+  border: 1px solid rgba(242, 169, 0, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+
+  .warningHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #f2a900;
+    margin-bottom: 12px;
+
+    .warnIcon { font-size: 1.3rem; }
+    h3 { font-size: 1.1rem; font-weight: 700; }
+  }
+
+  ul {
+    padding-left: 20px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+}

@@ -19,12 +19,12 @@ import styles from "./Footer.module.scss";
 
 // Dummy Instagram Feed Data
 const instaFeed = [
-  { id: 1, img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=300&q=80", link: "#" },
-  { id: 2, img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=300&q=80", link: "#" },
-  { id: 3, img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=300&q=80", link: "#" },
-  { id: 4, img: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=300&q=80", link: "#" },
-  { id: 5, img: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?auto=format&fit=crop&w=300&q=80", link: "#" },
-  { id: 6, img: "https://images.unsplash.com/photo-1511497584788-8767611136f6?auto=format&fit=crop&w=300&q=80", link: "#" },
+  { id: 1, img: "/images/thumb1.jpg", link: "https://www.instagram.com/p/Dcdpha9SdOs/" },
+  { id: 2, img: "/images/thumb2.jpg", link: "https://www.instagram.com/p/DcWEgKmSn35/" },
+  { id: 3, img: "/images/thumb3.jpg", link: "https://www.instagram.com/p/DbvofGJgvMj/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==" },
+  { id: 4, img: "/images/thumb4.jpg", link: "https://www.instagram.com/reel/DZyxKRkAevL/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==" },
+  { id: 5, img: "/images/thumb5.jpg", link: "https://www.instagram.com/p/DZc1q6fmEcQ/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==" },
+  { id: 6, img: "/images/thumb6.jpg", link: "https://www.instagram.com/reel/DZFW2OfArfF/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==" },
 ];
 
 export default function Footer() {
@@ -113,7 +113,7 @@ export default function Footer() {
           <div className={styles.reveal}>
             <div className={styles.logoContainer}>
               <div className={styles.moonGlow} />
-              <h2 className={styles.logo}>Flying Birds Adventure</h2>
+              <h2 className={styles.logo}>Flying Birds Adventures</h2>
             </div>
 
             <p className={styles.text}>
@@ -122,10 +122,9 @@ export default function Footer() {
             </p>
 
             <div className={styles.socials}>
-              <a href="#" aria-label="Instagram"><FaInstagram /></a>
-              <a href="#" aria-label="Facebook"><FaFacebookF /></a>
-              <a href="#" aria-label="YouTube"><FaYoutube /></a>
-              <a href="https://wa.me/919876543210" aria-label="WhatsApp" target="_blank" rel="noreferrer">
+              <a href="https://www.instagram.com/flying_birds_adventures/" aria-label="Instagram" target="_blank"><FaInstagram /></a>
+              <a href="https://www.facebook.com/people/flying_birds_adventures/100077349084017/"  aria-label="Facebook" target="_blank"><FaFacebookF /></a>
+              <a href="https://wa.me/919977995057" aria-label="WhatsApp" target="_blank" rel="noreferrer">
                 <FaWhatsapp />
               </a>
             </div>
@@ -137,7 +136,7 @@ export default function Footer() {
             <div className={styles.linkList}>
               <Link href="/">Home</Link>
               <Link href="/about">About Us</Link>
-              <Link href="/packages">Packages</Link>
+              <Link href="/domestic">Packages</Link>
               <Link href="/gallery">Gallery</Link>
               <Link href="/contact">Contact</Link>
             </div>
@@ -157,7 +156,7 @@ export default function Footer() {
 
           {/* 📸 Live Instagram Gallery Grid */}
           <div className={styles.reveal}>
-            <h4>@FlyingBirdsAdventure</h4>
+            <h4>@flying_birds_adventures</h4>
             <div className={styles.instaGrid}>
               {instaFeed.map((item) => (
                 <a key={item.id} href={item.link} target="_blank" rel="noreferrer" className={styles.instaItem}>
@@ -172,29 +171,39 @@ export default function Footer() {
             {/* Contact Snip */}
             <div className={styles.contactCompact}>
               <div className={styles.info}>
-                <FaMapMarkerAlt /> <span>Indore, Madhya Pradesh</span>
+                <FaMapMarkerAlt /> <span>Sapna Sangeeta Rd, Loha Mandi, Snehnagar, Indore, Madhya Pradesh 452001</span>
               </div>
               <div className={styles.info}>
-                <FaPhoneAlt /> <span>+91 9876543210</span>
+                <FaPhoneAlt /> <span> +91 9977995057, +91 9977995058 </span> 
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Footer Bottom Bar */}
+     {/* Footer Bottom Bar */}
       <div className={styles.bottom}>
         <div className="container">
           <div className={styles.bottomFlex}>
             <p>© {new Date().getFullYear()} Flying Birds Adventure. All Rights Reserved.</p>
-            <p>Made with ❤️ in India</p>
+            
+            <p className={styles.developerCredit}>
+              Developed by{" "}
+              <a
+                href="https://www.instagram.com/dizzytech_byd/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                DizzyTech
+              </a>
+            </p>
           </div>
         </div>
       </div>
 
       {/* 💬 Floating WhatsApp Quick Chat */}
       <a
-        href="https://wa.me/919876543210?text=Hello!%20I%20want%20to%20plan%20an%20adventure."
+        href="https://wa.me/919977995080?text=Hello!%20I%20want%20to%20plan%20an%20Trip."
         target="_blank"
         rel="noreferrer"
         className={styles.floatingWhatsapp}

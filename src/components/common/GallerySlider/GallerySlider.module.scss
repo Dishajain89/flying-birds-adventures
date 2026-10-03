@@ -1,0 +1,231 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.gallerySection {
+  position: relative;
+  background-color: #0b0f19;
+  padding: 80px 0 100px 0;
+  overflow: hidden;
+  color: #ffffff;
+
+  @include mobile {
+    padding: 50px 0 60px 0;
+  }
+}
+
+.header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+  padding: 0 20px;
+
+  .tagBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(242, 169, 0, 0.4);
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #f2a900;
+    margin-bottom: 14px;
+    box-shadow: 0 0 15px rgba(242, 169, 0, 0.15);
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f2a900;
+    }
+  }
+
+  .title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include mobile {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.scrollWrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  .fadeLeft,
+  .fadeRight {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 140px;
+    z-index: 10;
+    pointer-events: none;
+
+    @include mobile {
+      width: 50px;
+    }
+  }
+
+  .fadeLeft {
+    left: 0;
+    background: linear-gradient(90deg, #0b0f19 0%, transparent 100%);
+  }
+
+  .fadeRight {
+    right: 0;
+    background: linear-gradient(270deg, #0b0f19 0%, transparent 100%);
+  }
+}
+
+.marqueeTrack {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: scrollInfinite 50s linear infinite;
+  will-change: transform;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+.mosaicGroup {
+  display: flex;
+  gap: 16px;
+  height: 480px;
+
+  @include mobile {
+    height: 380px;
+    gap: 12px;
+  }
+}
+
+.colOne {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 380px;
+
+  @include mobile {
+    width: 290px;
+    gap: 12px;
+  }
+
+  .heroPhoto {
+    height: 60%;
+  }
+
+  .bottomWidePhoto {
+    height: 40%;
+  }
+}
+
+.colTwo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 230px;
+
+  @include mobile {
+    width: 180px;
+    gap: 12px;
+  }
+
+  .stackedPhoto {
+    height: calc(50% - 8px);
+
+    @include mobile {
+      height: calc(50% - 6px);
+    }
+  }
+}
+
+.colThree {
+  width: 240px;
+  height: 100%;
+
+  @include mobile {
+    width: 190px;
+  }
+
+  .tallPortraitPhoto {
+    height: 100%;
+  }
+}
+
+.photoBox {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  background: rgba(22, 28, 45, 0.6);
+
+  .img {
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 60%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: 12px 14px;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+
+    span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(6px);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+  }
+
+  &:hover {
+    border-color: rgba(242, 169, 0, 0.5);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(242, 169, 0, 0.15);
+
+    .img {
+      transform: scale(1.08);
+    }
+
+    .overlay span {
+      background: #f2a900;
+      color: #000000;
+      border-color: #f2a900;
+    }
+  }
+}
+
+@keyframes scrollInfinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

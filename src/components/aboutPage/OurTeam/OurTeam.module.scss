@@ -1,0 +1,269 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/breakpoints" as *;
+
+.section {
+  position: relative;
+  background-color: #0b0f19;
+  padding: 110px 20px;
+  color: #ffffff;
+  overflow: hidden;
+
+  @include mobile {
+    padding: 60px 16px;
+  }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 60px auto;
+
+  .tagline {
+    display: inline-block;
+    color: #f2a900;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include tablet {
+      font-size: 2.2rem;
+    }
+
+    @include mobile {
+      font-size: 1.85rem;
+    }
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+
+    @include mobile {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+/* 4-Column Captains Grid */
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+
+  @include laptop {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* Captain ID Pass Card Architecture */
+.captainCard {
+  position: relative;
+  background: rgba(22, 28, 45, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  overflow: hidden;
+  backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
+
+  .imageBox {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+
+    @include mobile {
+      height: 300px;
+    }
+
+    .captainImg {
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      object-position: top center;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(11, 15, 25, 0.2) 0%,
+        rgba(11, 15, 25, 0.1) 40%,
+        rgba(11, 15, 25, 0.95) 100%
+      );
+    }
+
+    /* Top Certification Pill */
+    .badgePill {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(11, 15, 25, 0.75);
+      border: 1px solid rgba(242, 169, 0, 0.3);
+      backdrop-filter: blur(8px);
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #f2a900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Floating Social Links */
+    .socialStrip {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s ease;
+
+      a {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(11, 15, 25, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #f2a900;
+          color: #000000;
+          border-color: #f2a900;
+        }
+      }
+    }
+  }
+
+  /* Card Content */
+  .cardContent {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .captainName {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+      transition: color 0.3s ease;
+    }
+
+    .captainRole {
+      font-size: 0.85rem;
+      color: #f2a900;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .specialtyTag {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    /* Stats Footer */
+    .statsFooter {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+      .statCol {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .statIcon {
+          color: #f2a900;
+          font-size: 1.1rem;
+        }
+
+        strong {
+          display: block;
+          font-size: 0.88rem;
+          font-weight: 700;
+          color: #ffffff;
+        }
+
+        small {
+          display: block;
+          font-size: 0.68rem;
+          color: rgba(255, 255, 255, 0.55);
+        }
+      }
+
+      .statDivider {
+        width: 1px;
+        height: 26px;
+        background: rgba(255, 255, 255, 0.12);
+      }
+    }
+  }
+
+  /* Hover States */
+  &:hover {
+    transform: translateY(-8px);
+    border-color: rgba(242, 169, 0, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6),
+                0 0 25px rgba(242, 169, 0, 0.12);
+
+    .imageBox {
+      .captainImg {
+        transform: scale(1.08);
+      }
+
+      .socialStrip {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .cardContent .captainName {
+      color: #f2a900;
+    }
+  }
+}
