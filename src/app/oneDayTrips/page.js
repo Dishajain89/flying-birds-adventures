@@ -1,5 +1,5 @@
-import OneDayHero from '@/components/oneDayPage/OneDayHero/OneDayHero'
-import OnedayCardsData from '@/components/onedayPage/OneDayCards/OneDayCardsData'
+import OneDayHero from '../../components/onedayPage/OneDayHero/OneDayHero'
+import OnedayCardsData from '../../components/onedayPage/OneDayCards/OneDayCardsData'
 import React from 'react'
 
 function OneDayTrips() {
