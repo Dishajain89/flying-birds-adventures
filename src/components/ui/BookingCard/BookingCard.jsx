@@ -20,9 +20,9 @@ export default function BookingCard({ pkg }) {
   const activePricing = pkg.pricing?.[occupancy] || {
     price:
       occupancy === 'double'
-        ? Number(pkg.price) + 1000
+        ? Number(pkg.price) + 1500
         : occupancy === 'triple'
-        ? Number(pkg.price) + 500
+        ? Number(pkg.price) + 1000
         : Number(pkg.price),
     originalPrice:
       occupancy === 'double'

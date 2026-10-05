@@ -1,19 +1,22 @@
 import { client } from "@/sanity/lib/client";
 import { internationalTripsQuery } from "@/sanity/lib/queries";
-import { urlFor } from "@/sanity/lib/image";
 import TripCards from "./TripCards";
 
 export default async function InternationalCardsData({ tagline, title, subtitle }) {
-  const sanityTrips = await client.fetch(internationalTripsQuery);
+  const sanityTrips = await client.fetch(
+    internationalTripsQuery,
+    {},
+    { next: { revalidate: 0 } }
+  );
 
-  const trips = sanityTrips.map((trip) => ({
+  const trips = (sanityTrips || []).map((trip) => ({
     id: trip._id,
-    slug: trip.slug?.current,
-    name: trip.title,
-    state: trip.destination,
+    slug: trip.slug,
+    name: trip.name || trip.title,
+    state: trip.state,
     duration: trip.duration,
-    price: trip.startingPrice,
-    image: trip.coverImage ? urlFor(trip.coverImage).width(1200).url() : null,
+    price: trip.price,
+    image: trip.image,
     badge: trip.badge,
   }));
 
