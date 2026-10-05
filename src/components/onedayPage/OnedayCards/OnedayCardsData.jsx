@@ -1,9 +1,9 @@
 import { client } from "@/sanity/lib/client";
 import { oneDayTripsQuery } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
-import OnedayCards from "./OnedayCards";
+import OnedayCards from "./OneDayCards";
 
-export default async function OnedayCardsData() {
+export default async function OneDayCardsData() {
   const sanityTrips = await client.fetch(oneDayTripsQuery);
 
   const trips = sanityTrips.map((trip) => ({

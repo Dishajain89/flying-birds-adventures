@@ -10,9 +10,9 @@ import {
   FiArrowUpRight,
 } from "react-icons/fi";
 
-import styles from "./OnedayCards.module.scss";
+import styles from "./OneDayCards.module.scss";
 
-export default function OnedayCards({ trips = [] }) {
+export default function OneDayCards({ trips = [] }) {
   const [activeIdx, setActiveIdx] = useState(0);
 
   // Auto switch showcase every 4.5 seconds
