@@ -59,7 +59,7 @@ export default function ContactPage() {
       return;
     }
 
-    const text = `Hello Flying Birds Adventure! 🦅\n\nI have a travel enquiry:\n\n👤 *Name:* ${formData.name}\n📞 *Phone:* ${formData.phone}\n📧 *Email:* ${formData.email || "N/A"}\n📍 *Destination:* ${formData.destination || "Not decided"}\n👥 *Travelers:* ${formData.travelers}\n💬 *Message:* ${formData.message || "Need trip recommendations"}\n\nPlease get in touch with me!`;
+    const text = `Hello Flying Birds Adventures! 🦅\n\nI have a travel enquiry:\n\n👤 *Name:* ${formData.name}\n📞 *Phone:* ${formData.phone}\n📧 *Email:* ${formData.email || "N/A"}\n📍 *Destination:* ${formData.destination || "Not decided"}\n👥 *Travelers:* ${formData.travelers}\n💬 *Message:* ${formData.message || "Need trip recommendations"}\n\nPlease get in touch with me!`;
 
     const encoded = encodeURIComponent(text);
     window.open(`https://wa.me/919977995057?text=${encoded}`, "_blank");

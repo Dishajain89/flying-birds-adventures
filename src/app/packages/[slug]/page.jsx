@@ -7,11 +7,18 @@ import { tripBySlugQuery } from "@/sanity/lib/queries";
 import PackageDetailsClient from "./PackageDetailsClient";
 import CustomizedConnect from "@/components/ui/CustomizedConnect/CustomizedConnect";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function PackageDetailsPage({ params }) {
   const { slug } = await params;
 
   // Fetch trip from Sanity
-  const trip = await client.fetch(tripBySlugQuery, { slug });
+  const trip = await client.fetch(
+    tripBySlugQuery,
+    { slug },
+    { next: { revalidate: 0 }, cache: "no-store" }
+  );
 
   // Agar trip ki details Sanity me nahi mili
   if (!trip) {
@@ -23,7 +30,7 @@ export default async function PackageDetailsPage({ params }) {
           {/* Breadcrumb Fallback */}
           <nav className={styles.breadcrumb}>
             <Link href="/">Home</Link> &gt;{" "}
-            <Link href="/packages">Packages</Link> &gt;{" "}
+            <span>Custom Packages</span> &gt;{" "}
             <span style={{ textTransform: "capitalize" }}>{formattedDestination}</span>
           </nav>
 
@@ -47,15 +54,27 @@ export default async function PackageDetailsPage({ params }) {
     );
   }
 
+  // Dynamic category mapping based on tripType
+  const categoryMap = {
+    domestic: { name: "Domestic Trips", href: "/domestic" },
+    international: { name: "International Trips", href: "/international" },
+    oneDay: { name: "One Day Trips", href: "/oneDayTrips" },
+  };
+
+  const parentCategory = categoryMap[trip.tripType] || {
+    name: "Trips",
+    href: "/",
+  };
+
   // Agar trip data available hai
   return (
     <main className={styles.pageWrapper}>
       <div className={styles.container}>
-        {/* Breadcrumbs */}
+        {/* Dynamic Breadcrumbs */}
         <nav className={styles.breadcrumb}>
           <Link href="/">Home</Link> &gt;{" "}
-          <Link href="/packages">Packages</Link> &gt;{" "}
-          <span>{trip.title}</span>
+          <Link href={parentCategory.href}>{parentCategory.name}</Link> &gt;{" "}
+          <span>{trip.title || trip.name}</span>
         </nav>
 
         {/* Trip Detail Client Section */}

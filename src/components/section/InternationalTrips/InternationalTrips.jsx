@@ -99,7 +99,7 @@ export default function InternationalTrips({ trips = [] }) {
             speed={900}
 
             autoplay={{
-              delay: 4000,
+              delay: 2000,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}

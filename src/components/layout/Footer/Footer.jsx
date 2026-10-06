@@ -83,9 +83,9 @@ export default function Footer() {
       </div>
 
       {/* 🦅 Animated Flying Eagle */}
-      <div ref={eagleRef} className={styles.flyingEagle}>
+      {/* <div ref={eagleRef} className={styles.flyingEagle}>
         🦅
-      </div>
+      </div> */}
 
       {/* 🏔️ SVG Mountain Silhouette Divider Header */}
       <div className={styles.mountainWrapper}>
@@ -185,7 +185,7 @@ export default function Footer() {
       <div className={styles.bottom}>
         <div className="container">
           <div className={styles.bottomFlex}>
-            <p>© {new Date().getFullYear()} Flying Birds Adventure. All Rights Reserved.</p>
+            <p>© {new Date().getFullYear()} Flying Birds Adventures. All Rights Reserved.</p>
             
             <p className={styles.developerCredit}>
               Developed by{" "}

@@ -9,7 +9,7 @@
   overflow: hidden;
 
   @include mobile {
-    padding: 50px 12px 60px 12px;
+    padding: 45px 10px 55px 10px;
   }
 }
 
@@ -87,7 +87,6 @@
     letter-spacing: -1px;
     margin-bottom: 8px;
     color: #ffffff;
-    // font-weight: 900;
 
     .titleHighlight {
       color: #f2a900;
@@ -121,7 +120,7 @@
   flex-shrink: 0;
 
   @include mobile {
-    display: none; // Mobile gestures use swipe
+    display: none;
   }
 
   .navBtn {
@@ -153,15 +152,13 @@
   }
 }
 
-/* =========================================================
-   Filter Tabs & International Switch
-   ========================================================= */
+/* Filter Bar */
 .filterBar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
   padding-bottom: 8px;
 
   @include tablet {
@@ -197,8 +194,8 @@
     transition: all 0.25s ease;
 
     @include mobile {
-      font-size: 0.74rem;
-      padding: 6px 13px;
+      font-size: 0.72rem;
+      padding: 5px 12px;
     }
 
     &:hover {
@@ -230,8 +227,8 @@
   margin-left: auto;
 
   @include mobile {
-    padding: 4px 10px;
-    gap: 8px;
+    padding: 4px 8px;
+    gap: 6px;
   }
 
   .toggleLabel {
@@ -242,7 +239,7 @@
     white-space: nowrap;
 
     @include mobile {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
     }
   }
 
@@ -260,8 +257,8 @@
     align-items: center;
 
     @include mobile {
-      width: 38px;
-      height: 20px;
+      width: 36px;
+      height: 18px;
     }
 
     .switchHandle {
@@ -274,8 +271,8 @@
       transform: translateX(0);
 
       @include mobile {
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
       }
     }
 
@@ -294,7 +291,7 @@
   }
 }
 
-/* Swiper Container Stage */
+/* Swiper Slider Wrapper */
 .sliderWrapper {
   position: relative;
   width: 100%;
@@ -309,7 +306,7 @@
 
 .swiperContainer {
   overflow: visible;
-  padding: 8px 0 24px 0;
+  padding: 8px 0 20px 0;
   cursor: default !important;
 }
 
@@ -319,48 +316,59 @@
   cursor: default !important;
 }
 
-/* Cinematic Card (Scaled for 2-3 Cards Visibility on Mobile) */
+/* =========================================================
+   Stage Card (Proportional Scaling & Zero Image Shrink)
+   ========================================================= */
 .stageCard {
   position: relative;
   width: 100%;
-  height: 440px;
-  border-radius: 26px;
+  height: 480px;
+  aspect-ratio: 9 / 13.5; // Natural portrait vertical aspect ratio
+  min-height: 400px;
+  border-radius: 22px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(18, 24, 38, 0.6);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65);
+  background: #0e131f;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 22px;
-  cursor: default;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.4s ease,
-              box-shadow 0.4s ease;
+  padding: 20px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
 
   @include tablet {
-    height: 380px;
+    aspect-ratio: 9 / 13.8;
+    min-height: 350px;
     padding: 16px;
-    border-radius: 20px;
+    border-radius: 18px;
   }
 
-  /* Compact Scale for Mobile Multi-card View */
   @include mobile {
-    height: 310px;
-    padding: 12px;
-    border-radius: 16px;
+    // aspect-ratio: 9 / 14.5;
+    min-height: 255px; // Sized precisely so 2 cards sit properly
+    padding: 10px 8px;
+    border-radius: 14px;
+    height: auto !important; // Desktop height override
+    aspect-ratio: 9 / 14;   // Sirf mobile par tall 2-card layout
   }
 
   .imageBackdrop {
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
     pointer-events: none;
 
     .bgImg {
-      object-fit: cover;
-      object-position: top center;
-      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      object-fit: cover !important; // Zero distortion / zero stretching
+      object-position: center top;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .gradientOverlay {
@@ -368,9 +376,9 @@
       inset: 0;
       background: linear-gradient(
         180deg,
-        rgba(7, 10, 18, 0.25) 0%,
-        rgba(7, 10, 18, 0.15) 35%,
-        rgba(7, 10, 18, 0.92) 80%,
+        rgba(7, 10, 18, 0.15) 0%,
+        rgba(7, 10, 18, 0.25) 30%,
+        rgba(7, 10, 18, 0.88) 72%,
         #070a12 100%
       );
     }
@@ -387,17 +395,18 @@
     .badge {
       background: #f2a900;
       color: #000000;
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       font-weight: 800;
       padding: 4px 10px;
-      border-radius: 18px;
+      border-radius: 14px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       box-shadow: 0 4px 12px rgba(242, 169, 0, 0.35);
 
       @include mobile {
-        font-size: 0.58rem;
-        padding: 3px 8px;
+        font-size: 0.52rem;
+        padding: 2px 6px;
+        border-radius: 10px;
       }
     }
   }
@@ -407,65 +416,75 @@
     z-index: 3;
     display: flex;
     flex-direction: column;
+    gap: 2px;
 
     .locationPill {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       font-size: 0.72rem;
       font-weight: 700;
       color: #f2a900;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
+      letter-spacing: 0.4px;
+      margin-bottom: 2px;
 
       .pinIcon {
-        font-size: 0.8rem;
+        font-size: 0.78rem;
       }
 
       @include mobile {
-        font-size: 0.64rem;
-        margin-bottom: 2px;
+        font-size: 0.58rem;
+        gap: 2px;
+
+        .pinIcon {
+          font-size: 0.64rem;
+        }
       }
     }
 
     .cardTitle {
-      font-size: 1.55rem;
+      font-size: 1.45rem;
       font-weight: 900;
       color: #ffffff;
-      line-height: 1.2;
-      margin-bottom: 6px;
-      transition: color 0.3s ease;
+      line-height: 1.18;
+      margin: 0 0 4px 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      transition: color 0.3s ease;
 
       @include tablet {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
       }
 
       @include mobile {
-        font-size: 1.02rem;
-        margin-bottom: 4px;
+        font-size: 0.88rem;
+        margin-bottom: 2px;
       }
     }
 
     .durationRow {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 14px;
+      gap: 4px;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 10px;
 
       .clockIcon {
         color: #f2a900;
+        font-size: 0.8rem;
       }
 
       @include mobile {
-        font-size: 0.68rem;
-        margin-bottom: 8px;
-        gap: 3px;
+        font-size: 0.6rem;
+        margin-bottom: 6px;
+        gap: 2px;
+
+        .clockIcon {
+          font-size: 0.65rem;
+        }
       }
     }
 
@@ -473,11 +492,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 12px;
+      padding-top: 10px;
       border-top: 1px solid rgba(255, 255, 255, 0.12);
 
       @include mobile {
-        padding-top: 8px;
+        padding-top: 6px;
       }
 
       .priceWrap {
@@ -485,32 +504,33 @@
         flex-direction: column;
 
         .priceLabel {
-          font-size: 0.65rem;
+          font-size: 0.62rem;
           color: rgba(255, 255, 255, 0.55);
           text-transform: uppercase;
-          letter-spacing: 0.5px;
+          letter-spacing: 0.4px;
 
           @include mobile {
-            font-size: 0.55rem;
+            font-size: 0.48rem;
           }
         }
 
         .priceText {
-          font-size: 1.25rem;
+          font-size: 1.15rem;
           font-weight: 900;
           color: #ffffff;
+          line-height: 1.1;
 
           @include mobile {
-            font-size: 0.95rem;
+            font-size: 0.82rem;
           }
 
           .perPerson {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 500;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.55);
 
             @include mobile {
-              display: none; // Hides extra text on small screens
+              display: none;
             }
           }
         }
@@ -519,40 +539,35 @@
       .actionBtn {
         position: relative;
         z-index: 10;
-        cursor: pointer !important;
         background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.18);
         color: #ffffff;
-        padding: 8px 16px;
-        border-radius: 25px;
-        font-size: 0.8rem;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.78rem;
         font-weight: 700;
         display: inline-flex;
         align-items: center;
-        gap: 4px;
-        text-decoration: none;
+        gap: 3px;
         backdrop-filter: blur(8px);
-        transition: all 0.3s ease;
+        transition: all 0.25s ease;
 
         @include mobile {
-          padding: 6px 10px;
-          font-size: 0.7rem;
-          border-radius: 18px;
+          padding: 3px 6px;
+          border-radius: 12px;
+          gap: 2px;
+
+          .actionText {
+            display: none; // Mobile par text hide karke compact round arrow pill ban jayega
+          }
         }
 
         .arrowIcon {
-          font-size: 0.9rem;
+          font-size: 0.88rem;
           transition: transform 0.2s ease;
-        }
 
-        &:hover {
-          background: #f2a900;
-          color: #000000;
-          border-color: #f2a900;
-          box-shadow: 0 4px 15px rgba(242, 169, 0, 0.35);
-
-          .arrowIcon {
-            transform: translate(2px, -2px);
+          @include mobile {
+            font-size: 0.75rem;
           }
         }
       }
@@ -563,31 +578,42 @@
     position: absolute;
     inset: 0;
     border: 2px solid transparent;
-    border-radius: 26px;
+    border-radius: 22px;
     pointer-events: none;
-    transition: all 0.4s ease;
+    transition: all 0.35s ease;
     z-index: 4;
 
     @include tablet {
-      border-radius: 20px;
+      border-radius: 18px;
     }
 
     @include mobile {
-      border-radius: 16px;
+      border-radius: 14px;
     }
   }
 
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.85), 0 0 25px rgba(242, 169, 0, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 20px rgba(242, 169, 0, 0.2);
     border-color: rgba(242, 169, 0, 0.4);
 
     .imageBackdrop .bgImg {
-      transform: scale(1.08);
+      transform: scale(1.06);
     }
 
     .cardBody .cardTitle {
       color: #f2a900;
+    }
+
+    .cardFooter .actionBtn {
+      background: #f2a900;
+      color: #000000;
+      border-color: #f2a900;
+      box-shadow: 0 4px 12px rgba(242, 169, 0, 0.35);
+
+      .arrowIcon {
+        transform: translate(2px, -2px);
+      }
     }
 
     .glowBorder {
@@ -602,15 +628,15 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  margin-top: 32px;
+  margin-top: 28px;
 
   @include mobile {
-    margin-top: 20px;
+    margin-top: 16px;
   }
 
   .bullet {
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.2);
     cursor: pointer;
@@ -619,8 +645,8 @@
   }
 
   .bulletActive {
-    width: 24px;
-    border-radius: 20px;
+    width: 22px;
+    border-radius: 16px;
     background: #f2a900;
     box-shadow: 0 0 10px rgba(242, 169, 0, 0.6);
   }

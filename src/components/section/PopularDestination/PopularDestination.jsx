@@ -27,7 +27,6 @@ const CATEGORIES = [
   { id: "trek", label: "Trek" },
 ];
 
-// Active tab ke hisaab se dynamic heading words
 const CATEGORY_TITLES = {
   all: "Group",
   weekend: "Weekend",
@@ -96,7 +95,6 @@ export default function PopularDestinations({ trips = [] }) {
               <span>EXPLORE INDIA&apos;S BEST</span>
             </div>
 
-            {/* Dynamic Title (Group Trips / Weekend Trips / Trek Trips) */}
             <h2 className={styles.title}>
               {CATEGORY_TITLES[activeCategory] || "Group"}{" "}
               <span className={styles.titleHighlight}>Trips</span>
@@ -196,12 +194,12 @@ export default function PopularDestinations({ trips = [] }) {
               }}
               breakpoints={{
                 0: {
-                  slidesPerView: 2.15,
-                  spaceBetween: 12,
+                  slidesPerView: 2.15, // Mobile screen: 2 cards poore + agle ka sneak peek
+                  spaceBetween: 10,
                 },
-                540: {
-                  slidesPerView: 2.6,
-                  spaceBetween: 14,
+                480: {
+                  slidesPerView: 2.3,
+                  spaceBetween: 12,
                 },
                 768: {
                   slidesPerView: 2.8,
@@ -220,19 +218,25 @@ export default function PopularDestinations({ trips = [] }) {
             >
               {filteredTrips.map((dest, index) => {
                 const tripSlug = dest.slug || dest.id;
+                const tripPrice = dest.price ?? dest.startingPrice ?? 0;
+
                 return (
                   <SwiperSlide
                     key={dest.id || index}
                     className={styles.swiperSlide}
                   >
-                    <div className={styles.stageCard}>
+                    <Link
+                      href={`/packages/${tripSlug}`}
+                      className={styles.stageCard}
+                    >
+                      {/* Image Backdrop */}
                       <div className={styles.imageBackdrop}>
                         {dest.image && (
                           <Image
                             src={dest.image}
-                            alt={dest.name || dest.title}
+                            alt={dest.name || dest.title || "Trip Image"}
                             fill
-                            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                            sizes="(max-width: 640px) 48vw, (max-width: 1024px) 33vw, 25vw"
                             className={styles.bgImg}
                             priority={index < 2}
                           />
@@ -240,12 +244,14 @@ export default function PopularDestinations({ trips = [] }) {
                         <div className={styles.gradientOverlay} />
                       </div>
 
+                      {/* Header Badge */}
                       <div className={styles.cardHeader}>
                         {dest.badge && (
                           <span className={styles.badge}>{dest.badge}</span>
                         )}
                       </div>
 
+                      {/* Content Body */}
                       <div className={styles.cardBody}>
                         {dest.state && (
                           <div className={styles.locationPill}>
@@ -269,24 +275,20 @@ export default function PopularDestinations({ trips = [] }) {
                           <div className={styles.priceWrap}>
                             <span className={styles.priceLabel}>Starting from</span>
                             <div className={styles.priceText}>
-                              ₹{dest.price}{" "}
+                              ₹{tripPrice.toLocaleString("en-IN")}
                               <small className={styles.perPerson}>/ person</small>
                             </div>
                           </div>
 
-                          <Link
-                            href={`/packages/${tripSlug}`}
-                            className={styles.actionBtn}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <span>Explore</span>
+                          <div className={styles.actionBtn}>
+                            <span className={styles.actionText}>Explore</span>
                             <FiArrowUpRight className={styles.arrowIcon} />
-                          </Link>
+                          </div>
                         </div>
                       </div>
 
                       <div className={styles.glowBorder} />
-                    </div>
+                    </Link>
                   </SwiperSlide>
                 );
               })}

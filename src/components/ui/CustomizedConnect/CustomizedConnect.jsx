@@ -6,8 +6,8 @@ import { FaWhatsapp, FaHandPointer } from 'react-icons/fa';
 import styles from './CustomizedConnect.module.scss';
 
 export default function CustomizedConnect({
-  phone = '+919999999999',
-  whatsapp = '919999999999',
+  phone = '+919977995057',
+  whatsapp = '919977995058',
 }) {
   const waMessage = encodeURIComponent(
     'Hi Flying Birds Adventure! I want to plan a customized trip. Please connect me with a trip captain.'

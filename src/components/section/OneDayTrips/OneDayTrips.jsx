@@ -93,6 +93,14 @@ export default function OneDayTrips({ trips = [] }) {
               nextEl,
             }}
             breakpoints={{
+               0: {
+                  slidesPerView: 1.15, // Mobile screen: 2 cards poore + agle ka sneak peek
+                  spaceBetween: 10,
+                },
+                480: {
+                  slidesPerView: 1.3,
+                  spaceBetween: 12,
+                },
               640: {
                 slidesPerView: 1.6,
                 spaceBetween: 20,
@@ -109,17 +117,21 @@ export default function OneDayTrips({ trips = [] }) {
             className={styles.swiperContainer}
           >
             {trips.map((trip) => {
-              const tripSlug = trip.slug || trip.id;
+              const tripSlug = trip.slug?.current || trip.slug || trip.id;
 
               return (
-                <SwiperSlide key={trip.id} className={styles.swiperSlide}>
-                  <div className={styles.card}>
+                <SwiperSlide key={trip.id || trip._id} className={styles.swiperSlide}>
+                  {/* Poora Card ab ek Next.js Link hai */}
+                  <Link
+                    href={`/packages/${tripSlug}`}
+                    className={styles.card}
+                  >
                     {/* Full Edge-to-Edge Image Canvas */}
                     <div className={styles.imageBackdrop}>
                       {trip.image && (
                         <Image
                           src={trip.image}
-                          alt={trip.name}
+                          alt={trip.name || "Adventure"}
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           className={styles.bgImage}
@@ -158,23 +170,19 @@ export default function OneDayTrips({ trips = [] }) {
                         <div className={styles.priceContainer}>
                           <span className={styles.priceLabel}>Starting from</span>
                           <div className={styles.priceValue}>
-                            ₹{trip.price} <small>/ person</small>
+                            ₹{trip.price || 0} <small>/ person</small>
                           </div>
                         </div>
 
-                        <Link
-                          href={`/packages/${tripSlug}`}
-                          className={styles.actionBtn}
-                          onClick={(e) => e.stopPropagation()}
-                        >
+                        <div className={styles.actionBtn}>
                           <span>View Details</span>
                           <FiArrowRight className={styles.arrowIcon} />
-                        </Link>
+                        </div>
                       </div>
                     </div>
 
                     <div className={styles.glowBorder} />
-                  </div>
+                  </Link>
                 </SwiperSlide>
               );
             })}
