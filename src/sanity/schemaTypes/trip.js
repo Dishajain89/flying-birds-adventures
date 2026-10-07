@@ -143,13 +143,30 @@ export default {
               type: "string",
               description: "e.g., '2 Days / 1 Night' ya 'Same Day'",
             },
-            {
-              name: "price",
-              title: "Price for this route (₹)",
-              type: "number",
-              description:
-                "e.g., 4999 (Agar empty chhoda toh common starting price use hoga)",
-            },
+           // Existing Quad / Base Price
+{
+  name: "price",
+  title: "Quad Sharing / Base Price (₹)",
+  type: "number",
+  description: "Quad sharing rate (or Flat price for One Day trips)",
+  validation: (Rule) => Rule.required(),
+},
+
+// 1. Triple Sharing Field 👇
+{
+  name: "triplePrice",
+  title: "Triple Sharing Price (₹)",
+  type: "number",
+  description: "Triple sharing per person rate (One-day trips me empty chhod dein)",
+},
+
+// 2. Double Sharing Field 👇
+{
+  name: "doublePrice",
+  title: "Double Sharing Price (₹)",
+  type: "number",
+  description: "Double sharing per person rate (One-day trips me empty chhod dein)",
+},
             {
               name: "coverImage",
               title: "Itinerary Specific Cover Image",

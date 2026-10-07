@@ -42,7 +42,6 @@ export default function PackageDetailsClient({ trip }) {
       SAFE GALLERY IMAGES
   ========================= */
 
-  // Sirf wahi images filter hongi jinme valid asset ya asset._ref present hai
   const galleryImages = [
     selectedItinerary.coverImage,
     ...(selectedItinerary.gallery || []),
@@ -67,7 +66,7 @@ export default function PackageDetailsClient({ trip }) {
     day: item.day,
     title: item.title,
     details: item.description,
-  meals: item.meals || item.meal || "",
+    meals: item.meals || item.meal || "",
     stay: item.stay || item.accommodation || "",
   }));
 
@@ -80,11 +79,17 @@ export default function PackageDetailsClient({ trip }) {
     .map((item) => item.date);
 
   /* =========================
-      PRICE
+      PRICE & OCCUPANCY RATES
   ========================= */
 
   const price =
     selectedItinerary.price || trip.startingPrice || 0;
+
+  const triplePrice =
+    selectedItinerary.triplePrice ?? trip.triplePrice ?? null;
+
+  const doublePrice =
+    selectedItinerary.doublePrice ?? trip.doublePrice ?? null;
 
   /* =========================
       BOOKING CARD DATA
@@ -98,7 +103,11 @@ export default function PackageDetailsClient({ trip }) {
       trip.duration ||
       "Flexible",
 
+    tripType: trip.tripType || "domestic", // 👈 One-Day vs Domestic switch ke liye zaroori hai
+
     price,
+    triplePrice, // 👈 Sanity Triple Rate pass ho gaya
+    doublePrice, // 👈 Sanity Double Rate pass ho gaya
 
     batches,
     groupType: "Group Trip",
@@ -118,7 +127,6 @@ export default function PackageDetailsClient({ trip }) {
         {galleryImages.map((img, idx) => {
           const imageUrl = getSafeImageUrl(img);
 
-          // Agar image URL resolve na ho toh div render nahi hoga
           if (!imageUrl) return null;
 
           return (

@@ -12,7 +12,7 @@ const OCCUPANCY_OPTIONS = [
 ];
 
 export default function BookingCard({ pkg = {} }) {
-  // 1. Bulletproof One-Day Check (Kisi bhi format me ho, pakad lega)
+  // 1. One-Day Trip Check
   const tripTypeStr = String(pkg.tripType || '').toLowerCase().trim();
   const durationStr = String(pkg.duration || '').toLowerCase().trim();
   const titleStr = String(pkg.title || '').toLowerCase().trim();
@@ -30,17 +30,23 @@ export default function BookingCard({ pkg = {} }) {
   const [selectedBatch, setSelectedBatch] = useState(pkg.batches?.[0] || '');
   const [guests, setGuests] = useState(1);
 
-  // 2. Base Price
+  // 2. Base Price (Quad Sharing rate)
   const basePrice = Number(pkg.price || pkg.startingPrice || 0);
 
-  // 3. Dynamic Triple & Double Price
-  const tripleRate = pkg.triplePrice !== undefined && pkg.triplePrice !== null
-    ? Number(pkg.triplePrice)
-    : basePrice + 1000;
+  // 3. Dynamic Sanity Rates (Root ya Itinerary dono jagah se check karega)
+  const activeItinerary = pkg.itineraries?.[0] || {};
+  
+  const rawTriple = pkg.triplePrice ?? activeItinerary.triplePrice;
+  const rawDouble = pkg.doublePrice ?? activeItinerary.doublePrice;
 
-  const doubleRate = pkg.doublePrice !== undefined && pkg.doublePrice !== null
-    ? Number(pkg.doublePrice)
-    : basePrice + 1500;
+  // Agar Sanity me rate fill kiya hai toh wahi lega, warna hi fallback use hoga
+  const tripleRate = rawTriple !== undefined && rawTriple !== null && rawTriple !== ''
+    ? Number(rawTriple)
+    : (basePrice ? basePrice + 1000 : 0);
+
+  const doubleRate = rawDouble !== undefined && rawDouble !== null && rawDouble !== ''
+    ? Number(rawDouble)
+    : (basePrice ? basePrice + 1500 : 0);
 
   // 4. Current Price calculation
   let currentPrice = basePrice;
@@ -54,7 +60,7 @@ export default function BookingCard({ pkg = {} }) {
     }
   }
 
-  // 5. Strikethrough Original Price & Discount
+  // 5. Automatic Original Cutout Price & Discount Badge (20% Markup)
   const currentOriginalPrice = Math.round((currentPrice * 1.2) / 100) * 100;
   const discountAmount = currentOriginalPrice > currentPrice ? currentOriginalPrice - currentPrice : 0;
   const totalAmount = guests * currentPrice;
@@ -75,7 +81,7 @@ export default function BookingCard({ pkg = {} }) {
 
   return (
     <div className={styles.stickyContainer}>
-      {/* Dynamic Trip Snapshot Card */}
+      {/* Trip Snapshot Card */}
       <div className={styles.snapshotCard}>
         <div className={styles.snapHeader}>
           <h3>📍 {pkg.title}</h3>
@@ -111,7 +117,7 @@ export default function BookingCard({ pkg = {} }) {
             {isOneDayTrip ? 'Trip Fare' : 'Starting From'}
           </span>
 
-          {/* Occupancy Tabs: Sirf Tab Dikhega Jab isOneDayTrip FALSE Ho */}
+          {/* Occupancy Tabs (Domestic & International me show honge, One Day me hide) */}
           {!isOneDayTrip && (
             <div className={styles.occupancyRow}>
               <span className={styles.occupancyLabel}>Occupancy —</span>
@@ -154,22 +160,24 @@ export default function BookingCard({ pkg = {} }) {
         </div>
 
         {/* Batch Selection */}
-        <div className={styles.formGroup}>
-          <label>
-            <FiCalendar /> Select Batch
-          </label>
-          <select
-            value={selectedBatch}
-            onChange={(e) => setSelectedBatch(e.target.value)}
-            className={styles.selectInput}
-          >
-            {pkg.batches?.map((batch, index) => (
-              <option key={index} value={batch}>
-                {batch}
-              </option>
-            ))}
-          </select>
-        </div>
+        {pkg.batches && pkg.batches.length > 0 && (
+          <div className={styles.formGroup}>
+            <label>
+              <FiCalendar /> Select Batch
+            </label>
+            <select
+              value={selectedBatch}
+              onChange={(e) => setSelectedBatch(e.target.value)}
+              className={styles.selectInput}
+            >
+              {pkg.batches.map((batch, index) => (
+                <option key={index} value={batch}>
+                  {batch}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         {/* Guests Counter */}
         <div className={styles.formGroup}>

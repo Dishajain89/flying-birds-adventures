@@ -88,12 +88,20 @@ export const oneDayTripsQuery = `
 // ===================================
 // SINGLE TRIP BY SLUG (Includes Meals, Stay & PDF Resolvers)
 // ===================================
+// ===================================
+// SINGLE TRIP BY SLUG (Includes Meals, Stay & PDF Resolvers)
+// ===================================
 export const tripBySlugQuery = `
   *[_type == "trip" && slug.current == $slug][0]{
     ...,
     "image": coverImage.asset->url,
+    "triplePrice": itineraries[0].triplePrice,
+    "doublePrice": itineraries[0].doublePrice,
     itineraries[]{
       ...,
+      price,
+      triplePrice,
+      doublePrice,
       "pdfUrl": pdf.asset->url,
       "pdfName": pdf.asset->originalFilename,
       days[]{
