@@ -11,30 +11,52 @@ const OCCUPANCY_OPTIONS = [
   { key: 'double', label: 'Double' },
 ];
 
-export default function BookingCard({ pkg }) {
+export default function BookingCard({ pkg = {} }) {
+  // 1. Bulletproof One-Day Check (Kisi bhi format me ho, pakad lega)
+  const tripTypeStr = String(pkg.tripType || '').toLowerCase().trim();
+  const durationStr = String(pkg.duration || '').toLowerCase().trim();
+  const titleStr = String(pkg.title || '').toLowerCase().trim();
+
+  const isOneDayTrip =
+    tripTypeStr === 'oneday' ||
+    tripTypeStr === 'one-day' ||
+    tripTypeStr === 'day' ||
+    durationStr.includes('same day') ||
+    durationStr.includes('1 day') ||
+    durationStr.includes('1d') ||
+    titleStr.includes('one day');
+
   const [occupancy, setOccupancy] = useState('quad');
   const [selectedBatch, setSelectedBatch] = useState(pkg.batches?.[0] || '');
   const [guests, setGuests] = useState(1);
 
-  // Fallback if pkg passes an object with occupancy rates or just single price
-  const activePricing = pkg.pricing?.[occupancy] || {
-    price:
-      occupancy === 'double'
-        ? Number(pkg.price) + 1500
-        : occupancy === 'triple'
-        ? Number(pkg.price) + 1000
-        : Number(pkg.price),
-    originalPrice:
-      occupancy === 'double'
-        ? Number(pkg.price) + 3500
-        : occupancy === 'triple'
-        ? Number(pkg.price) + 2500
-        : Number(pkg.price) + 1500,
-  };
+  // 2. Base Price
+  const basePrice = Number(pkg.price || pkg.startingPrice || 0);
 
-  const currentPrice = activePricing.price;
-  const currentOriginalPrice = activePricing.originalPrice;
-  const discountAmount = currentOriginalPrice - currentPrice;
+  // 3. Dynamic Triple & Double Price
+  const tripleRate = pkg.triplePrice !== undefined && pkg.triplePrice !== null
+    ? Number(pkg.triplePrice)
+    : basePrice + 1000;
+
+  const doubleRate = pkg.doublePrice !== undefined && pkg.doublePrice !== null
+    ? Number(pkg.doublePrice)
+    : basePrice + 1500;
+
+  // 4. Current Price calculation
+  let currentPrice = basePrice;
+  if (!isOneDayTrip) {
+    if (occupancy === 'double') {
+      currentPrice = doubleRate;
+    } else if (occupancy === 'triple') {
+      currentPrice = tripleRate;
+    } else {
+      currentPrice = basePrice;
+    }
+  }
+
+  // 5. Strikethrough Original Price & Discount
+  const currentOriginalPrice = Math.round((currentPrice * 1.2) / 100) * 100;
+  const discountAmount = currentOriginalPrice > currentPrice ? currentOriginalPrice - currentPrice : 0;
   const totalAmount = guests * currentPrice;
 
   const handleGuestChange = (type) => {
@@ -43,7 +65,10 @@ export default function BookingCard({ pkg }) {
   };
 
   const handleWhatsAppBooking = () => {
-    const message = `Hello Flying Birds Adventure! 🦅\n\nI want to book the following trip:\n\n📍 *Destination:* ${pkg.title}\n🛏️ *Occupancy:* ${occupancy.toUpperCase()} Sharing\n📅 *Batch Date:* ${selectedBatch}\n👥 *Number of Guests:* ${guests}\n💰 *Total Price:* ₹${totalAmount.toLocaleString('en-IN')}\n\nPlease share the payment details and seat availability!`;
+    const tripTitle = pkg.title || 'Adventure Trip';
+    const sharingLine = isOneDayTrip ? '' : `🛏️ *Occupancy:* ${occupancy.toUpperCase()} Sharing\n`;
+
+    const message = `Hello Flying Birds Adventure! 🦅\n\nI want to book the following trip:\n\n📍 *Destination:* ${tripTitle}\n${sharingLine}📅 *Batch Date:* ${selectedBatch}\n👥 *Number of Guests:* ${guests}\n💰 *Price per Person:* ₹${currentPrice.toLocaleString('en-IN')}\n💵 *Total Price:* ₹${totalAmount.toLocaleString('en-IN')}\n\nPlease share the payment details and seat availability!`;
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/918982303230?text=${encodedMessage}`, '_blank');
   };
@@ -65,11 +90,11 @@ export default function BookingCard({ pkg }) {
           </div>
           <div className={styles.snapItem}>
             <FiUsers className={styles.icon} />
-            <span>{pkg.groupType}</span>
+            <span>{isOneDayTrip ? 'Day Expedition' : pkg.groupType || 'Group Trip'}</span>
           </div>
           <div className={styles.snapItem}>
             <FiStar className={styles.starIcon} />
-            <span>{pkg.rating} Rating</span>
+            <span>{pkg.rating || '4.9'} Rating</span>
           </div>
           <div className={styles.snapItem}>
             <FiMapPin className={styles.icon} />
@@ -82,26 +107,30 @@ export default function BookingCard({ pkg }) {
       <div className={styles.bookingCard}>
         {/* Occupancy Pricing Header */}
         <div className={styles.priceHeader}>
-          <span className={styles.fromLabel}>Starting From</span>
+          <span className={styles.fromLabel}>
+            {isOneDayTrip ? 'Trip Fare' : 'Starting From'}
+          </span>
 
-          {/* Occupancy Tabs */}
-          <div className={styles.occupancyRow}>
-            <span className={styles.occupancyLabel}>Occupancy —</span>
-            <div className={styles.occupancyTabs}>
-              {OCCUPANCY_OPTIONS.map((opt) => (
-                <button
-                  key={opt.key}
-                  type="button"
-                  onClick={() => setOccupancy(opt.key)}
-                  className={`${styles.occupancyBtn} ${
-                    occupancy === opt.key ? styles.occupancyActive : ''
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
+          {/* Occupancy Tabs: Sirf Tab Dikhega Jab isOneDayTrip FALSE Ho */}
+          {!isOneDayTrip && (
+            <div className={styles.occupancyRow}>
+              <span className={styles.occupancyLabel}>Occupancy —</span>
+              <div className={styles.occupancyTabs}>
+                {OCCUPANCY_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.key}
+                    type="button"
+                    onClick={() => setOccupancy(opt.key)}
+                    className={`${styles.occupancyBtn} ${
+                      occupancy === opt.key ? styles.occupancyActive : ''
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Price & Discount Display */}
           <div className={styles.priceContainer}>
@@ -164,7 +193,11 @@ export default function BookingCard({ pkg }) {
 
         {/* Total Price Display */}
         <div className={styles.totalRow}>
-          <span>Total Price ({occupancy.toUpperCase()} Sharing):</span>
+          <span>
+            {isOneDayTrip
+              ? `Total Price (${guests} Person${guests > 1 ? 's' : ''}):`
+              : `Total Price (${occupancy.toUpperCase()} Sharing):`}
+          </span>
           <span className={styles.totalVal}>
             ₹{totalAmount.toLocaleString('en-IN')}
           </span>
@@ -175,17 +208,17 @@ export default function BookingCard({ pkg }) {
           <FaWhatsapp className={styles.waIcon} /> Book Now via WhatsApp
         </button>
 
-      {pkg.brochureUrl && (
-  <a
-    href={`/api/download-pdf?url=${encodeURIComponent(
-  pkg.brochureUrl
-)}&name=${encodeURIComponent(pkg.title)}`}
-    className={styles.downloadBtn}
-  >
-    <FiDownload />
-    Download Itinerary PDF
-  </a>
-)}
+        {pkg.brochureUrl && (
+          <a
+            href={`/api/download-pdf?url=${encodeURIComponent(
+              pkg.brochureUrl
+            )}&name=${encodeURIComponent(pkg.title)}`}
+            className={styles.downloadBtn}
+          >
+            <FiDownload />
+            Download Itinerary PDF
+          </a>
+        )}
       </div>
     </div>
   );
