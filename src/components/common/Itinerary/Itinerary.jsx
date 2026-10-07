@@ -1,34 +1,50 @@
 'use client';
 
 import React, { useState } from 'react';
-import { FiChevronDown, FiCoffee, FiHome, FiCompass } from 'react-icons/fi';
+import { FiChevronDown, FiCoffee, FiHome, FiClock } from 'react-icons/fi';
 import styles from './Itinerary.module.scss';
 
-export default function Itinerary({ days }) {
-  const [openDay, setOpenDay] = useState(1);
+export default function Itinerary({ days = [] }) {
+  const [openDay, setOpenDay] = useState(0);
 
-  const toggleDay = (dayNum) => {
-    setOpenDay(openDay === dayNum ? null : dayNum);
+  const toggleDay = (index) => {
+    setOpenDay(openDay === index ? null : index);
   };
+
+  if (!days || !days.length) return null;
 
   return (
     <div className={styles.itineraryWrapper}>
-      <h2 className={styles.sectionTitle}>📅 Day-wise Itinerary</h2>
+      <h2 className={styles.sectionTitle}>📅 Schedule & Itinerary</h2>
 
       <div className={styles.accordionGroup}>
-        {days.map((item) => {
-          const isOpen = openDay === item.day;
+        {days.map((item, index) => {
+          const isOpen = openDay === index;
+          const hasMeals = Boolean(item.meals && item.meals.trim());
+          const hasStay = Boolean(item.stay && item.stay.trim());
+
+          // Check: Kya yeh pure number hai (Multi-day) ya Time string (One-day)
+          const rawDay = String(item.day || index + 1).trim();
+          const isNumericDay = /^\d+$/.test(rawDay);
+
           return (
             <div
-              key={item.day}
+              key={index}
               className={`${styles.accordionItem} ${isOpen ? styles.active : ''}`}
             >
               <button
                 className={styles.accordionHeader}
-                onClick={() => toggleDay(item.day)}
+                onClick={() => toggleDay(index)}
+                type="button"
               >
-                <div className={styles.dayBadge}>Day {item.day}</div>
+                {/* Dynamic Badge: Day 1 vs 06:00 AM */}
+                <div className={styles.dayBadge}>
+                  {!isNumericDay && <FiClock style={{ marginRight: '4px' }} />}
+                  {isNumericDay ? `Day ${rawDay}` : rawDay}
+                </div>
+
                 <h3 className={styles.dayTitle}>{item.title}</h3>
+
                 <FiChevronDown
                   className={`${styles.arrowIcon} ${isOpen ? styles.rotate : ''}`}
                 />
@@ -36,15 +52,25 @@ export default function Itinerary({ days }) {
 
               {isOpen && (
                 <div className={styles.accordionContent}>
-                  <p className={styles.detailsText}>{item.details}</p>
-                  <div className={styles.dayTags}>
-                    <span>
-                      <FiCoffee /> {item.meals}
-                    </span>
-                    <span>
-                      <FiHome /> {item.stay}
-                    </span>
-                  </div>
+                  {item.details && (
+                    <p className={styles.detailsText}>{item.details}</p>
+                  )}
+
+                  {/* Meals & Stay Badges (Conditional) */}
+                  {(hasMeals || hasStay) && (
+                    <div className={styles.dayTags}>
+                      {hasMeals && (
+                        <span>
+                          <FiCoffee /> {item.meals}
+                        </span>
+                      )}
+                      {hasStay && (
+                        <span>
+                          <FiHome /> {item.stay}
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
             </div>

@@ -73,7 +73,8 @@ export default {
       name: "category",
       title: "Trip Category (Tabs Filter)",
       type: "string",
-      description: "Website par tabs filter (Weekend Trips / Trek) ke liye select karein",
+      description:
+        "Website par tabs filter (Weekend Trips / Trek) ke liye select karein",
       options: {
         list: [
           { title: "Weekend Trip", value: "weekend" },
@@ -175,8 +176,10 @@ export default {
                   fields: [
                     {
                       name: "day",
-                      title: "Day Number",
-                      type: "number",
+                      title: "Day / Time Slot",
+                      type: "string", 
+                      description:
+                        "Multi-day ke liye '1', '2' likhein | One-day ke liye '06:00 AM', '12:30 PM' likhein",
                     },
                     {
                       name: "title",
