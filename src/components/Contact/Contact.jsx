@@ -28,9 +28,9 @@ const COMMUNITY_PICS = [
     src: "/images/groupPhotos/img3.JPEG",
     caption: "Manikaran gurudwara,kosal",
   },
-  { src: "/images/groupPhotos/img4.jpg", caption: "River Rafting , kulu" },
+  { src: "/images/groupPhotos/img4.JPG", caption: "River Rafting , kulu" },
   {
-    src: "/images/groupPhotos/img5.jpg",
+    src: "/images/groupPhotos/img5.JPG",
     caption: "Manali, Himachal Pradesh",
   },
 ];
