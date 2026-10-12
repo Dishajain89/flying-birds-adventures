@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer/Footer";
 import ConditionalLayout from "@/components/layout/ConditionalLayout/ConditionalLayout";
 
 export const metadata = {
-  title: "Flying Birds Adventure",
+  title: "Flying Birds Adventures",
   description: "Explore Incredible India with Flying Birds Adventure",
 };
 
