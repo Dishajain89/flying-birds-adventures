@@ -76,7 +76,7 @@ export default function BookingCard({ pkg = {} }) {
 
     const message = `Hello Flying Birds Adventure! 🦅\n\nI want to book the following trip:\n\n📍 *Destination:* ${tripTitle}\n${sharingLine}📅 *Batch Date:* ${selectedBatch}\n👥 *Number of Guests:* ${guests}\n💰 *Price per Person:* ₹${currentPrice.toLocaleString('en-IN')}\n💵 *Total Price:* ₹${totalAmount.toLocaleString('en-IN')}\n\nPlease share the payment details and seat availability!`;
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/918982303230?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/919977995057?text=${encodedMessage}`, '_blank');
   };
 
   return (

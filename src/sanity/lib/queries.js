@@ -9,7 +9,7 @@ export const allTripsQuery = `
     "slug": slug.current,
     "state": destination,
     "image": coverImage.asset->url,
-    "price": startingPrice,
+    "price": coalesce(itineraries[0].price, startingPrice, 0),
     duration,
     badge,
     tripType,
@@ -19,16 +19,16 @@ export const allTripsQuery = `
   }
 `;
 
-// Popular / Featured Trips for Homepage (Domestic + International Group Trips)
+// Popular / Featured Trips for Homepage (Sirf wahi jinpar featuredOnHome ON hai)
 export const popularTripsQuery = `
-  *[_type == "trip" && (tripType == "domestic" || tripType == "international")] | order(_createdAt desc) {
+  *[_type == "trip" && featuredOnHome == true] | order(_createdAt desc) {
     _id,
     title,
     "name": title,
     "slug": slug.current,
     "state": destination,
     "image": coverImage.asset->url,
-    "price": startingPrice,
+    "price": coalesce(itineraries[0].price, startingPrice, 0),
     duration,
     badge,
     tripType,
@@ -49,7 +49,7 @@ export const domesticTripsQuery = `
     "slug": slug.current,
     "state": destination,
     "image": coverImage.asset->url,
-    "price": startingPrice,
+    "price": coalesce(itineraries[0].price, startingPrice, 0),
     duration,
     badge,
     category
@@ -64,7 +64,7 @@ export const internationalTripsQuery = `
     "slug": slug.current,
     "state": destination,
     "image": coverImage.asset->url,
-    "price": startingPrice,
+    "price": coalesce(itineraries[0].price, startingPrice, 0),
     duration,
     badge,
     category
@@ -79,7 +79,7 @@ export const oneDayTripsQuery = `
     "slug": slug.current,
     "state": destination,
     "image": coverImage.asset->url,
-    "price": startingPrice,
+    "price": coalesce(itineraries[0].price, startingPrice, 0),
     duration,
     badge
   }
@@ -88,13 +88,11 @@ export const oneDayTripsQuery = `
 // ===================================
 // SINGLE TRIP BY SLUG (Includes Meals, Stay & PDF Resolvers)
 // ===================================
-// ===================================
-// SINGLE TRIP BY SLUG (Includes Meals, Stay & PDF Resolvers)
-// ===================================
 export const tripBySlugQuery = `
   *[_type == "trip" && slug.current == $slug][0]{
     ...,
     "image": coverImage.asset->url,
+    "price": coalesce(itineraries[0].price, startingPrice, 0),
     "triplePrice": itineraries[0].triplePrice,
     "doublePrice": itineraries[0].doublePrice,
     itineraries[]{
@@ -128,12 +126,13 @@ export const galleryQuery = `
     _id,
     title,
     location,
-    image
+    "image": image.asset->url
   }
 `;
 
-
-
+// ===================================
+// TESTIMONIALS
+// ===================================
 export const testimonialsQuery = `
   *[
     _type == "testimonial" &&

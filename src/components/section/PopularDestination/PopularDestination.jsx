@@ -44,20 +44,22 @@ export default function PopularDestinations({ trips = [] }) {
   // Dynamic Filtering Logic
   const filteredTrips = useMemo(() => {
     return trips.filter((trip) => {
-      // 1. Domestic vs International Check
-      const tripIsIntl =
+      // 1. Strict Domestic vs International Check
+      const tripTypeLower = String(trip.tripType || "").toLowerCase().trim();
+      const isTripIntl =
         trip.isInternational === true ||
-        (trip.region && trip.region.toLowerCase().includes("international")) ||
-        (trip.tripType && trip.tripType.toLowerCase().includes("international"));
+        tripTypeLower === "international" ||
+        String(trip.region || "").toLowerCase().includes("international");
 
-      if (isInternational ? !tripIsIntl : tripIsIntl) {
+      // Agar toggle International par hai toh sirf International dikhe, warna Domestic
+      if (isInternational ? !isTripIntl : isTripIntl) {
         return false;
       }
 
       // 2. Category Tab Check
       if (activeCategory === "all") return true;
 
-      const directCategory = (trip.category || trip.tripType || "").toLowerCase();
+      const directCategory = String(trip.category || "").toLowerCase().trim();
       if (directCategory === activeCategory) return true;
 
       const combinedMeta = `${trip.title || ""} ${trip.name || ""} ${trip.badge || ""}`.toLowerCase();
@@ -169,7 +171,7 @@ export default function PopularDestinations({ trips = [] }) {
             </div>
           ) : (
             <Swiper
-              key={`${activeCategory}-${isInternational}`}
+              key={`${activeCategory}-${isInternational}-${filteredTrips.length}`}
               modules={[Navigation, Pagination, Autoplay]}
               grabCursor={false}
               simulateTouch={true}
@@ -194,7 +196,7 @@ export default function PopularDestinations({ trips = [] }) {
               }}
               breakpoints={{
                 0: {
-                  slidesPerView: 2.15, // Mobile screen: 2 cards poore + agle ka sneak peek
+                  slidesPerView: 2.15,
                   spaceBetween: 10,
                 },
                 480: {
@@ -217,12 +219,12 @@ export default function PopularDestinations({ trips = [] }) {
               className={styles.swiperContainer}
             >
               {filteredTrips.map((dest, index) => {
-                const tripSlug = dest.slug || dest.id;
+                const tripSlug = dest.slug || dest._id;
                 const tripPrice = dest.price ?? dest.startingPrice ?? 0;
 
                 return (
                   <SwiperSlide
-                    key={dest.id || index}
+                    key={dest._id || index}
                     className={styles.swiperSlide}
                   >
                     <Link
