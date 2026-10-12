@@ -25,12 +25,16 @@ $glass-blur: blur(16px);
 .videoWrapper {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 1;
+  overflow: hidden;
 
   .bgVideo {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
     animation: slowZoom 20s ease-in-out infinite alternate;
   }
 }
@@ -350,80 +354,107 @@ $glass-blur: blur(16px);
 }
 
 /* ====================================================
-   MOBILE VIEW (Desktop Layout Scale Down)
+   MOBILE VIEW (Strict 65% Height Lock: Hero & Video)
    ==================================================== */
 @media (max-width: 768px) {
   .hero {
-    padding: 95px 14px 40px 14px;
-    min-height: 90vh;
+    height: 65vh !important;
+    max-height: 65vh !important;
+    min-height: 65vh !important;
+    overflow: hidden !important;
+    padding: 65px 14px 16px 14px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .videoWrapper {
+    height: 100% !important;
+    max-height: 65vh !important;
+    overflow: hidden !important;
+
+    .bgVideo {
+      height: 100% !important;
+      width: 100% !important;
+      object-fit: cover !important;
+    }
+  }
+
+  .darkOverlay {
+    height: 100% !important;
+    max-height: 65vh !important;
+  }
+
+  .container {
+    width: 100%;
+    margin: auto 0;
   }
 
   .badge {
-    padding: 6px 14px;
-    font-size: 0.75rem;
-    margin-bottom: 18px;
+    padding: 4px 12px;
+    font-size: 0.7rem;
+    margin-bottom: 8px;
   }
 
   .heading {
-    font-size: 40px;
-    line-height: 1.15;
-    letter-spacing: -1px;
+    font-size: 30px;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
 
     .subHeading {
-      font-size: 32px;
+      font-size: 24px;
     }
   }
 
   .description {
-    font-size: 0.95rem;
-    max-width: 320px;
-    margin-bottom: 24px;
+    font-size: 0.82rem;
+    line-height: 1.35;
+    max-width: 290px;
+    margin-bottom: 14px;
   }
 
-  /* Desktop style row maintained, buttons scaled */
   .ctaGroup {
-    flex-direction: row; // 👈 Mobile par bhi single line row
-    gap: 10px;
+    flex-direction: row;
+    gap: 8px;
     width: 100%;
     justify-content: center;
-    margin-bottom: 28px;
+    margin-bottom: 14px;
 
     .primaryCta {
-      padding: 10px 18px;
-      font-size: 0.82rem;
+      padding: 8px 15px;
+      font-size: 0.78rem;
       white-space: nowrap;
     }
 
     .secondaryCta {
-      padding: 10px 16px;
-      font-size: 0.82rem;
+      padding: 8px 14px;
+      font-size: 0.78rem;
       white-space: nowrap;
     }
   }
 
-  /* Search bar is shifted to Navbar on mobile */
   .glassSearchCard {
     display: none !important;
   }
 
-  /* Stats row scaled down in single line */
   .statsContainer {
-    flex-direction: row; // 👈 Mobile par vertical stack nahi hoga
-    gap: 16px;
-    margin-top: 18px;
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 6px;
 
     .statItem {
       h3 {
-        font-size: 1.25rem;
+        font-size: 1.05rem;
       }
       p {
-        font-size: 0.68rem;
+        font-size: 0.62rem;
         white-space: nowrap;
       }
     }
 
     .statDivider {
-      height: 22px;
+      height: 18px;
     }
   }
 }
