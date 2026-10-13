@@ -2,44 +2,76 @@
 
 import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import styles from './BirdPageTransition.module.scss';
 
 export default function BirdPageTransition() {
   const pathname = usePathname();
-  const [animating, setAnimating] = useState(true);
+  const [animating, setAnimating] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
-    // Route change ya initial load hone par animation trigger hoga
+    // Har route switch par clean transition trigger karein
     setAnimating(true);
+    setIsClosing(false);
 
-    const timer = setTimeout(() => {
+    // 1.2s par smooth exit fade shuru
+    const exitTimer = setTimeout(() => {
+      setIsClosing(true);
+    }, 1900);
+
+    // 1.6s par component DOM se remove
+    const finishTimer = setTimeout(() => {
       setAnimating(false);
-    }, 12000); // 1.2s tak birds fly karengi fir page show hoga
+      setIsClosing(false);
+    }, 2400);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(exitTimer);
+      clearTimeout(finishTimer);
+    };
   }, [pathname]);
 
   if (!animating) return null;
 
   return (
-    <div className={`${styles.transitionOverlay} ${!animating ? styles.fadeExit : ''}`}>
-      {/* Flight Path Birds */}
-      <div className={styles.flockContainer}>
-        <div className={`${styles.birdLeader} ${styles.bird}`}>
-          <img src="/images/eagle-flying.gif" alt="Flying Bird" />
-        </div>
-        <div className={`${styles.birdCompanion1} ${styles.bird}`}>
-          <img src="/images/eagle-flying.gif" alt="Flying Bird" />
-        </div>
-        <div className={`${styles.birdCompanion2} ${styles.bird}`}>
-          <img src="/images/eagle-flying.gif" alt="Flying Bird" />
-        </div>
-      </div>
+    <aside
+      className={`${styles.transitionOverlay} ${isClosing ? styles.fadeExit : ''}`}
+      aria-label="Loading page transition"
+    >
+      {/* Cinematic Ambient Glow */}
+      <div className={styles.ambientGlow} />
 
-      {/* Brand Text Reveal */}
-      <div className={styles.brandBadge}>
-        <span>FLYING BIRDS ADVENTURE</span>
+      {/* Center Cinematic Stage */}
+      <div className={styles.stage}>
+        <div className={styles.birdHero}>
+          {/* Eagle Flight GIF */}
+          <div className={styles.birdImgWrap}>
+            <Image
+              src="/images/eagle-flying.gif"
+              alt="Flying Bird"
+              width={160}
+              height={120}
+              className={styles.eagleGif}
+              priority
+              unoptimized
+            />
+          </div>
+          {/* Subtle Wing Shadow below bird */}
+          <div className={styles.birdShadow} />
+        </div>
+
+        {/* Brand Typography */}
+        <div className={styles.brandContent}>
+          <span className={styles.brandSubtitle}>ADVENTURE AWAITS</span>
+          <h2 className={styles.brandTitle}>FLYING BIRDS</h2>
+
+          {/* Minimal Golden Progress Line */}
+          <div className={styles.progressTrack}>
+            <div className={styles.progressBar} />
+          </div>
+        </div>
       </div>
-    </div>
+    </aside>
   );
 }

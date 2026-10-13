@@ -4,172 +4,205 @@
   width: 100vw;
   height: 100vh;
   height: 100dvh;
-  background: radial-gradient(circle at center, #111726 0%, #070a12 100%);
-  z-index: 99999; // Navbar aur baki sab elements se upar
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(23, 29, 45, 0.98) 0%,
+    rgba(10, 13, 22, 0.99) 65%,
+    #050810 100%
+  );
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+  opacity: 1;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+
+  &.fadeExit {
+    opacity: 0;
+    transform: scale(1.02);
+    pointer-events: none;
+  }
+}
+
+/* Warm Atmospheric Radial Glow */
+.ambientGlow {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(
+    circle,
+    rgba(242, 169, 0, 0.18) 0%,
+    rgba(242, 169, 0, 0.05) 45%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+  animation: glowPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* Center Stage Content */
+.stage {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  pointer-events: none; // Click interrupt na kare
-  animation: fadeOut 0.4s ease 1s forwards;
+  z-index: 2;
 }
 
-.flockContainer {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
+.birdHero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: birdElevate 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-.bird {
-  position: absolute;
+.birdImgWrap {
+  width: 140px;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  img {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.7));
-  }
 }
 
-// Main Center Leader Eagle (Diagonal Swoop Animation)
-.birdLeader {
-  width: 160px;
-  animation: eagleFlightMain 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+.eagleGif {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.65));
 }
 
-// Side Supporting Birds (Depth effect)
-.birdCompanion1 {
-  width: 100px;
-  opacity: 0.8;
-  animation: eagleFlightLag1 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.08s forwards;
+.birdShadow {
+  width: 70px;
+  height: 12px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.5) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  margin-top: -6px;
+  animation: shadowPulse 1.5s ease-in-out infinite alternate;
 }
 
-.birdCompanion2 {
-  width: 80px;
-  opacity: 0.65;
-  animation: eagleFlightLag2 1.25s cubic-bezier(0.25, 1, 0.5, 1) 0.15s forwards;
-}
-
-@keyframes eagleFlightMain {
+@keyframes birdElevate {
   0% {
-    top: 85%;
-    left: -20%;
-    transform: scale(0.4) rotate(15deg);
+    transform: translateY(22px) scale(0.92);
     opacity: 0;
   }
   30% {
     opacity: 1;
   }
-  60% {
-    top: 40%;
-    left: 45%;
-    transform: scale(1.15) rotate(4deg);
+  100% {
+    transform: translateY(-8px) scale(1.05);
     opacity: 1;
   }
-  100% {
-    top: -15%;
-    left: 110%;
-    transform: scale(1.6) rotate(-8deg);
-    opacity: 0.2;
-  }
 }
 
-@keyframes eagleFlightLag1 {
+@keyframes shadowPulse {
   0% {
-    top: 90%;
-    left: -25%;
-    transform: scale(0.3) rotate(18deg);
-    opacity: 0;
-  }
-  40% {
-    opacity: 0.85;
-  }
-  70% {
-    top: 48%;
-    left: 40%;
-    transform: scale(0.9) rotate(6deg);
+    transform: scale(0.85);
+    opacity: 0.3;
   }
   100% {
-    top: -10%;
-    left: 115%;
-    transform: scale(1.2) rotate(-5deg);
-    opacity: 0;
+    transform: scale(1.15);
+    opacity: 0.6;
   }
 }
 
-@keyframes eagleFlightLag2 {
-  0% {
-    top: 75%;
-    left: -30%;
-    transform: scale(0.25) rotate(12deg);
-    opacity: 0;
-  }
-  45% {
-    opacity: 0.7;
-  }
-  75% {
-    top: 32%;
-    left: 50%;
-    transform: scale(0.7) rotate(2deg);
-  }
-  100% {
-    top: -20%;
-    left: 120%;
-    transform: scale(0.95) rotate(-10deg);
-    opacity: 0;
-  }
+/* Brand Text & Progress */
+.brandContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 18px;
+  text-align: center;
 }
 
-.brandBadge {
-  position: absolute;
-  bottom: 12%;
+.brandSubtitle {
+  font-size: 0.72rem;
   letter-spacing: 4px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #f2a900;
-  text-shadow: 0 0 20px rgba(242, 169, 0, 0.4);
-  animation: badgePulse 0.9s ease-in-out infinite alternate;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  margin-bottom: 4px;
 }
 
-@keyframes badgePulse {
-  0% {
-    opacity: 0.4;
-    transform: scale(0.97);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1.02);
-  }
+.brandTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #ffffff;
+  margin: 0;
+  background: linear-gradient(180deg, #ffffff 30%, #e6e6e6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-@keyframes fadeOut {
+.progressTrack {
+  width: 130px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  margin-top: 14px;
+  overflow: hidden;
+}
+
+.progressBar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #f2a900, #ffc738);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(242, 169, 0, 0.6);
+  animation: loadProgress 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes loadProgress {
   0% {
-    opacity: 1;
+    width: 0%;
+  }
+  60% {
+    width: 75%;
   }
   100% {
-    opacity: 0;
-    visibility: hidden;
+    width: 100%;
   }
 }
 
 @media (max-width: 768px) {
-  .birdLeader {
-    width: 120px;
+  .birdImgWrap {
+    width: 110px;
   }
-  .birdCompanion1 {
-    width: 75px;
+
+  .brandTitle {
+    font-size: 1.25rem;
+    letter-spacing: 2.2px;
   }
-  .birdCompanion2 {
-    width: 60px;
+
+  .brandSubtitle {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
   }
-  .brandBadge {
-    font-size: 0.72rem;
-    letter-spacing: 2.5px;
-    bottom: 15%;
+
+  .ambientGlow {
+    width: 320px;
+    height: 320px;
   }
 }
