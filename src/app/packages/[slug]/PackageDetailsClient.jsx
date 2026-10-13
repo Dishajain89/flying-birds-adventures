@@ -9,6 +9,7 @@ import {
   FiXCircle,
   FiAlertTriangle,
   FiCheck,
+  FiShare2,
 } from "react-icons/fi";
 
 import BookingCard from "@/components/ui/BookingCard/BookingCard";
@@ -26,6 +27,7 @@ export default function PackageDetailsClient({ trip }) {
   const itineraries = trip.itineraries || [];
 
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [copied, setCopied] = useState(false);
 
   const selectedItinerary =
     itineraries[selectedIndex] || itineraries[0];
@@ -103,11 +105,11 @@ export default function PackageDetailsClient({ trip }) {
       trip.duration ||
       "Flexible",
 
-    tripType: trip.tripType || "domestic", // 👈 One-Day vs Domestic switch ke liye zaroori hai
+    tripType: trip.tripType || "domestic",
 
     price,
-    triplePrice, // 👈 Sanity Triple Rate pass ho gaya
-    doublePrice, // 👈 Sanity Double Rate pass ho gaya
+    triplePrice,
+    doublePrice,
 
     batches,
     groupType: "Group Trip",
@@ -115,6 +117,36 @@ export default function PackageDetailsClient({ trip }) {
     bestTime: "As per batch",
     brochureUrl: selectedItinerary.pdfUrl || "",
     seatsLeft: selectedItinerary.seatsLeft || null,
+  };
+
+  /* =========================
+      SHARE HANDLER
+  ========================= */
+
+  const handleShare = async () => {
+    const tripTitle = selectedItinerary.title || trip.title;
+    const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: tripTitle,
+          text: `Check out this trip with Flying Birds Adventure: ${tripTitle}`,
+          url: currentUrl,
+        });
+        return;
+      } catch (err) {
+        // User cancelled share dialog
+      }
+    }
+
+    try {
+      await navigator.clipboard.writeText(currentUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Clipboard copy failed:", err);
+    }
   };
 
   return (
@@ -200,9 +232,31 @@ export default function PackageDetailsClient({ trip }) {
         <div className={styles.leftColumn}>
           {/* OVERVIEW */}
           <section className={styles.sectionBlock}>
-            <h1 className={styles.mainTitle}>
-              {selectedItinerary.title || trip.title}
-            </h1>
+            <div className={styles.titleShareRow}>
+              <h1 className={styles.mainTitle}>
+                {selectedItinerary.title || trip.title}
+              </h1>
+
+              <button
+                type="button"
+                className={`${styles.shareBtn} ${copied ? styles.copied : ""}`}
+                onClick={handleShare}
+                title="Share this package"
+                aria-label="Share this trip"
+              >
+                {copied ? (
+                  <>
+                    <FiCheck className={styles.shareIcon} />
+                    <span className={styles.shareText}>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <FiShare2 className={styles.shareIcon} />
+                    <span className={styles.shareText}>Share</span>
+                  </>
+                )}
+              </button>
+            </div>
 
             {selectedItinerary.tagline && (
               <p className={styles.overviewText}>
