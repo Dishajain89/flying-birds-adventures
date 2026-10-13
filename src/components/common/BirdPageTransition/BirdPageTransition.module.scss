@@ -1,0 +1,175 @@
+.transitionOverlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: radial-gradient(circle at center, #111726 0%, #070a12 100%);
+  z-index: 99999; // Navbar aur baki sab elements se upar
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; // Click interrupt na kare
+  animation: fadeOut 0.4s ease 1s forwards;
+}
+
+.flockContainer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bird {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.7));
+  }
+}
+
+// Main Center Leader Eagle (Diagonal Swoop Animation)
+.birdLeader {
+  width: 160px;
+  animation: eagleFlightMain 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+// Side Supporting Birds (Depth effect)
+.birdCompanion1 {
+  width: 100px;
+  opacity: 0.8;
+  animation: eagleFlightLag1 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.08s forwards;
+}
+
+.birdCompanion2 {
+  width: 80px;
+  opacity: 0.65;
+  animation: eagleFlightLag2 1.25s cubic-bezier(0.25, 1, 0.5, 1) 0.15s forwards;
+}
+
+@keyframes eagleFlightMain {
+  0% {
+    top: 85%;
+    left: -20%;
+    transform: scale(0.4) rotate(15deg);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    top: 40%;
+    left: 45%;
+    transform: scale(1.15) rotate(4deg);
+    opacity: 1;
+  }
+  100% {
+    top: -15%;
+    left: 110%;
+    transform: scale(1.6) rotate(-8deg);
+    opacity: 0.2;
+  }
+}
+
+@keyframes eagleFlightLag1 {
+  0% {
+    top: 90%;
+    left: -25%;
+    transform: scale(0.3) rotate(18deg);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.85;
+  }
+  70% {
+    top: 48%;
+    left: 40%;
+    transform: scale(0.9) rotate(6deg);
+  }
+  100% {
+    top: -10%;
+    left: 115%;
+    transform: scale(1.2) rotate(-5deg);
+    opacity: 0;
+  }
+}
+
+@keyframes eagleFlightLag2 {
+  0% {
+    top: 75%;
+    left: -30%;
+    transform: scale(0.25) rotate(12deg);
+    opacity: 0;
+  }
+  45% {
+    opacity: 0.7;
+  }
+  75% {
+    top: 32%;
+    left: 50%;
+    transform: scale(0.7) rotate(2deg);
+  }
+  100% {
+    top: -20%;
+    left: 120%;
+    transform: scale(0.95) rotate(-10deg);
+    opacity: 0;
+  }
+}
+
+.brandBadge {
+  position: absolute;
+  bottom: 12%;
+  letter-spacing: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #f2a900;
+  text-shadow: 0 0 20px rgba(242, 169, 0, 0.4);
+  animation: badgePulse 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes badgePulse {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 768px) {
+  .birdLeader {
+    width: 120px;
+  }
+  .birdCompanion1 {
+    width: 75px;
+  }
+  .birdCompanion2 {
+    width: 60px;
+  }
+  .brandBadge {
+    font-size: 0.72rem;
+    letter-spacing: 2.5px;
+    bottom: 15%;
+  }
+}
