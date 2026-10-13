@@ -146,11 +146,11 @@ export default function Footer() {
           <div className={styles.reveal}>
             <h4>Popular Destinations</h4>
             <div className={styles.linkList}>
-              <Link href="#">Manali</Link>
-              <Link href="#">Kasol</Link>
-              <Link href="#">Leh Ladakh</Link>
-              <Link href="#">Goa</Link>
-              <Link href="#">Spiti Valley</Link>
+              <Link href="/packages/manali">Manali</Link>
+              <Link href="/packages/udaipur">Udaipur</Link>
+              <Link href="/packages/panchmarhi">Panchmari</Link>
+              <Link href="/packages/goa">Goa</Link>
+              <Link href="/packages/rajasthanBackpacking">Rajasthan Backpacking</Link>
             </div>
           </div>
 
