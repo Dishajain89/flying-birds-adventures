@@ -13,7 +13,7 @@ export const TEAM_MEMBERS = [
     id: 'team-13',
     name: 'Sunil Soni',
     role: 'Marketing, Graphic Designer & Trip Captain',
-    image: '/images/aboutFba/sunil.jpeg',
+    image: '/images/aboutFba/sunil1.jpeg',
     specialty:
       'He is a Marketing & Graphic Designer, and Trip Captain who brings creativity and strategic thinking to the Flying Birds Adventure team.',
     instaUrl: 'https://www.instagram.com/sunil_soni_sonu_/',
