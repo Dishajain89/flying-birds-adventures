@@ -203,7 +203,7 @@ export default function Footer() {
 
       {/* 💬 Floating WhatsApp Quick Chat */}
       <a
-        href="https://wa.me/919977995080?text=Hello!%20I%20want%20to%20plan%20an%20Trip."
+        href="https://wa.me/919977995057?text=Hello!%20I%20want%20to%20plan%20an%20Trip."
         target="_blank"
         rel="noreferrer"
         className={styles.floatingWhatsapp}

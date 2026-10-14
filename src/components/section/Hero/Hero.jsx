@@ -104,7 +104,7 @@ export default function Hero() {
         </h1>
 
         <p className={styles.description} ref={descRef}>
-          Where every destination becomes a memory with Flying Birds Adventure.
+          Where every destination becomes a memory with Flying Birds Adventures.
         </p>
 
         {/* Action Buttons: Mobile par bhi row layout rakhenge */}
