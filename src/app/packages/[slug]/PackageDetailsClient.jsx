@@ -76,9 +76,26 @@ export default function PackageDetailsClient({ trip }) {
       BATCHES
   ========================= */
 
-  const batches = (trip.batchDates || [])
-    .filter((item) => item.status !== "soldOut")
-    .map((item) => item.date);
+  const today = new Date();
+today.setHours(0, 0, 0, 0); // Aaj ki shuruat se compare karenge
+
+const batches = (trip.batchDates || [])
+  .filter((item) => {
+    // 1. Agar admin ne manual soldOut kiya hai toh hide karein
+    if (item.status === "soldOut") return false;
+
+    // 2. Agar date nikal gayi hai (Past Date) toh automatically hide karein
+    if (item.date) {
+      const batchDate = new Date(item.date);
+      // Agar batch date aaj se pehle ki hai, toh return false (hide)
+      if (batchDate < today) {
+        return false;
+      }
+    }
+
+    return true;
+  })
+  .map((item) => item.date);
 
   /* =========================
       PRICE & OCCUPANCY RATES
